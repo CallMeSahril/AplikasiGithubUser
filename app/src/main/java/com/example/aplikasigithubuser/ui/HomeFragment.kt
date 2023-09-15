@@ -3,15 +3,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
+import com.example.aplikasigithubuser.data.response.ItemsItem
 import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
+import com.example.aplikasigithubuser.ui.DetailFragment
 import com.example.aplikasigithubuser.ui.MainViewModel
 import com.example.aplikasigithubuser.ui.UserAdapter
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
@@ -24,13 +28,40 @@ class HomeFragment : Fragment() {
         val rootView = binding.root
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = UserAdapter()
+        val adapter = UserAdapter(this)
 
         // Mengatur LinearLayoutManager
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter
+
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView.editText.setOnEditorActionListener { textView, actionId, event ->
+                val query = searchView.text.toString().trim()
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (query.isEmpty()) {
+                        // Jika pengguna tidak memasukkan teks, panggil metode fetchDataFromApi dengan nilai default "sahril"
+                        viewModel.fetchDataFromApi("sahril")
+                    } else {
+                        // Jika pengguna memasukkan teks, panggil metode fetchDataFromApi dengan nilai query
+                        viewModel.fetchDataFromApi(query)
+                    }
+
+                    // Lakukan tindakan lain yang Anda perlukan saat pengguna menekan tombol "Cari"
+                    searchBar.text = searchView.text
+                    searchView.hide()
+                    Toast.makeText(context, searchView.text, Toast.LENGTH_SHORT).show()
+
+                    true
+                } else {
+                    false
+                }
+            }
+
+
+        }
 
         // Observe LiveData for isLoading
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -51,8 +82,24 @@ class HomeFragment : Fragment() {
         return rootView
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onItemClick(item: ItemsItem) {
+        val username = item.login
+
+        // Membuat instance fragment detail dan mengirim data
+        val detailFragment = DetailFragment.newInstance("$username")
+
+        // Mengganti fragment saat item diklik
+        val transaction = fragmentManager?.beginTransaction()
+        transaction?.replace(R.id.frame_container, detailFragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
+    }
+
 }

@@ -26,11 +26,11 @@ class MainViewModel : ViewModel() {
     init {
         fetchDataFromApi()
     }
-    private fun fetchDataFromApi() {
+     fun fetchDataFromApi(username: String = "sahril") {
         _isLoading.postValue(true) // Set isLoading to true while fetching data
 
         val apiService = ApiConfig.getApiService()
-        val call = apiService.searchUsers("CallMeSahril") // Ganti dengan username yang ingin dicari
+        val call = apiService.searchUsers(username) // Menggunakan parameter username yang diterima
 
         call.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(
@@ -54,6 +54,7 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+
 
 
 }
