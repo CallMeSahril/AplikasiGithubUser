@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class SectionsPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class SectionsPagerAdapter(activity: FragmentActivity,private val tabTitles: Array<String>) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
     }
