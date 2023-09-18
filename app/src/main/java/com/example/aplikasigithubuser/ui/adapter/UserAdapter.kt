@@ -40,8 +40,7 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
                 .load(review.avatarUrl)
                 .into(binding.ivImage)
 
-            Log.i("Gambar", "${review.avatarUrl}")
-            Log.i("Gambar", "${review.login}")
+            Log.i(TAG, "bind: ${review.login}")
 
             // Tambahkan kode untuk menangani klik item di sini
             itemView.setOnClickListener {
@@ -51,6 +50,7 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
     }
 
     companion object {
+        const val TAG = "UserAdapter"
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Itemsitem>() {
             override fun areItemsTheSame(oldItem: Itemsitem, newItem: Itemsitem): Boolean {
                 return oldItem == newItem

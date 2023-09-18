@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.FollowersResponseItem
+import com.example.aplikasigithubuser.data.response.ItemFollowers
 import com.example.aplikasigithubuser.data.response.Itemsitem
 import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
-import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
 import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
+import com.example.aplikasigithubuser.ui.adapter.UserAdapter
 import com.example.aplikasigithubuser.ui.fragment.DetailFragment
 import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
-import com.example.aplikasigithubuser.ui.adapter.UserAdapter
 
 class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
     private var _binding: FragmentFollowerBinding? = null
@@ -33,35 +33,48 @@ class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        val recyclerView = rootView.findViewById<RecyclerView>(R.id.rv_follower)
-        val adapter = FollowersAdapter(this)
-
-        // Mengatur LinearLayoutManager
-        val layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = layoutManager
-
-        recyclerView.adapter = adapter
-
-
-        // Observe LiveData for isLoading
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                // Tampilkan ProgressBar jika isLoading adalah true
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                // Sembunyikan ProgressBar jika isLoading adalah false
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-
-        // Observe LiveData here and update the adapter data
-        viewModel.listReviewFolower.observe(viewLifecycleOwner) { items ->
-            adapter.submitList(items)
-        }
-
         return rootView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchDataFollowers("CallMeSahril")
+
+        // Tambahkan kode khusus yang ingin Anda jalankan saat onViewCreated di sini
+        // Contoh: menampilkan pesan Toast saat fragment dibuat
+        Toast.makeText(requireContext(), "Fragment Follower Created", Toast.LENGTH_SHORT).show()
+
+//        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
+//        val adapter = FollowersAdapter(this)
+
+        // Mengatur LinearLayoutManager
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFollower.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
+        binding.rvFollower.addItemDecoration(itemDecoration)
+
+
+        viewModel.listReviewFolower.observe(viewLifecycleOwner) { consumerReviews ->
+            Log.i("FollowerFragment", "Data changed: ${consumerReviews.size} items")
+            setReviewData(consumerReviews)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
+
+
+    }
+    private fun setReviewData(consumerReviews: List<ItemFollowers>) {
+        val adapter = FollowersAdapter(this)
+        adapter.submitList(consumerReviews)
+        binding.rvFollower.adapter = adapter
+
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
 
     override fun onDestroyView() {
@@ -69,17 +82,16 @@ class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
         _binding = null
     }
 
-    override fun onItemClick(item: FollowersResponseItem) {
+    override fun onItemClick(item: ItemFollowers) {
         val username = item.login
 
         // Membuat instance fragment detail dan mengirim data
         val detailFragment = DetailFragment.newInstance("$username")
 
         // Mengganti fragment saat item diklik
-        val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.frame_container, detailFragment)
-        transaction?.addToBackStack(null)
-        transaction?.commit()
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_container, detailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
-
 }
