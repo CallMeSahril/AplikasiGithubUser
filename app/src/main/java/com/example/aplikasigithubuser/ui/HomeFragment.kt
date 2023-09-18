@@ -9,11 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.ItemsItem
+import com.example.aplikasigithubuser.data.response.Itemsitem
 import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
-import com.example.aplikasigithubuser.ui.DetailFragment
-import com.example.aplikasigithubuser.ui.MainViewModel
-import com.example.aplikasigithubuser.ui.UserAdapter
+import com.example.aplikasigithubuser.ui.fragment.DetailFragment
+import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+import com.example.aplikasigithubuser.ui.adapter.UserAdapter
 
 class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     private var _binding: FragmentHomeBinding? = null
@@ -89,7 +89,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         _binding = null
     }
 
-    override fun onItemClick(item: ItemsItem) {
+    override fun onItemClick(item: Itemsitem) {
         val username = item.login
 
         // Membuat instance fragment detail dan mengirim data

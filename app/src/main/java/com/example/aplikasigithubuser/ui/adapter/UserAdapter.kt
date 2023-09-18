@@ -1,6 +1,5 @@
-package com.example.aplikasigithubuser.ui
+package com.example.aplikasigithubuser.ui.adapter
 
-import HomeFragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,16 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.aplikasigithubuser.data.response.ItemsItem
+import com.example.aplikasigithubuser.data.response.Itemsitem
 import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
-import kotlin.math.log
 
 class UserAdapter(private val onItemClickListener: OnItemClickListener) :
-    ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<Itemsitem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     // Interface untuk menangani klik item
     interface OnItemClickListener {
-        fun onItemClick(item: ItemsItem)
+        fun onItemClick(item: Itemsitem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -36,13 +34,14 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
         private val onItemClickListener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(review: ItemsItem) {
+        fun bind(review: Itemsitem) {
             binding.tvFullName.text = "${review.login}"
             Glide.with(binding.root.context)
                 .load(review.avatarUrl)
                 .into(binding.ivImage)
 
-            Log.i("IMAGE", "${review.avatarUrl}")
+            Log.i("Gambar", "${review.avatarUrl}")
+            Log.i("Gambar", "${review.login}")
 
             // Tambahkan kode untuk menangani klik item di sini
             itemView.setOnClickListener {
@@ -52,12 +51,12 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
-            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Itemsitem>() {
+            override fun areItemsTheSame(oldItem: Itemsitem, newItem: Itemsitem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+            override fun areContentsTheSame(oldItem: Itemsitem, newItem: Itemsitem): Boolean {
                 return oldItem == newItem
             }
         }

@@ -1,8 +1,10 @@
-package com.example.aplikasigithubuser.ui
+package com.example.aplikasigithubuser.ui.adapter
 
+import FollowerFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.aplikasigithubuser.ui.FollowingFragment
 
 class SectionsPagerAdapter(activity: FragmentActivity,private val tabTitles: Array<String>) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {

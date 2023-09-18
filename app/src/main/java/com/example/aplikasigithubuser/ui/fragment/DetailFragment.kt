@@ -1,7 +1,6 @@
-package com.example.aplikasigithubuser.ui
+package com.example.aplikasigithubuser.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.R
 import com.example.aplikasigithubuser.data.response.DetailResponse
 import com.example.aplikasigithubuser.data.retrofit.ApiConfig
+import com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
@@ -49,7 +48,7 @@ class DetailFragment : Fragment() {
         progressBarDetail.visibility = View.VISIBLE
 
         if (username != null) {
-            val service = ApiConfig.getApiServiceDetail()
+            val service = ApiConfig.getApiService()
             val call = service.getUser(username)
 
             call.enqueue(object : Callback<DetailResponse> {
@@ -77,6 +76,7 @@ class DetailFragment : Fragment() {
                             .into(ivImageDetail)
                         tvName.text = user.login ?: ""
 
+
                         // Now, set up ViewPager and TabLayout here
                         val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES)
                         val viewPager: ViewPager2 = rootView.findViewById(R.id.view_pager)
@@ -86,6 +86,7 @@ class DetailFragment : Fragment() {
                             tab.text = TAB_TITLES[position]
                         }.attach()
                         (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f
+
                     } else {
                         // Handle unsuccessful response
                     }
