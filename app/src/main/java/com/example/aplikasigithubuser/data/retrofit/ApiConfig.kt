@@ -18,7 +18,7 @@ class ApiConfig {
             val authInterceptor = Interceptor { chain ->
                 val originalRequest = chain.request()
                 val newRequest: Request = originalRequest.newBuilder()
-                    .header("Authorization", "Bearer $TOKEN") // Add your token here
+//                    .header("Authorization", "$TOKEN") // Add your token here
                     .build()
                 chain.proceed(newRequest)
             }

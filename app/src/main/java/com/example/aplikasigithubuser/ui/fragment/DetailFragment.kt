@@ -1,10 +1,12 @@
 package com.example.aplikasigithubuser.ui.fragment
 
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -23,6 +25,7 @@ import retrofit2.Response
 class DetailFragment : Fragment() {
     private lateinit var user: DetailResponse
     private var TAB_TITLES: Array<String> = emptyArray() // Initialize with empty array
+
 
     companion object {
         const val ARG_USERNAME = "username"
@@ -43,10 +46,12 @@ class DetailFragment : Fragment() {
         val username = arguments?.getString(ARG_USERNAME)
 
         val rootView = inflater.inflate(R.layout.fragment_detail, container, false)
+
         val progressBarDetail = rootView.findViewById<ProgressBar>(R.id.progressBarDetail)
         progressBarDetail.visibility = View.VISIBLE
 
         if (username != null) {
+
             val service = ApiConfig.getApiService()
             val call = service.getUser(username)
 
@@ -56,28 +61,42 @@ class DetailFragment : Fragment() {
                     response: Response<DetailResponse>
                 ) {
                     progressBarDetail.visibility = View.GONE
+                    val backButton = rootView.findViewById<ImageButton>(R.id.imageButton)
+                    backButton.setOnClickListener {
+                        requireActivity().supportFragmentManager.popBackStack()
+                    }
 
                     if (response.isSuccessful) {
                         user = response.body() ?: return
 
-                        // Update the TAB_TITLES array
                         TAB_TITLES = arrayOf(
                             "${user.followers} ${getString(R.string.tab_text_1)}",
                             "${user.following} ${getString(R.string.tab_text_2)}",
-                            // Add more strings as needed
                         )
 
                         // Lakukan sesuatu dengan data pengguna yang diperoleh
                         val tvName = rootView.findViewById<TextView>(R.id.tv_name)
+                        val tvUserName = rootView.findViewById<TextView>(R.id.tv_name_user)
                         val ivImageDetail = rootView.findViewById<ImageView>(R.id.iv_image_detail)
+
+                        val tvEmail= rootView.findViewById<TextView>(R.id.tv_email)
+                        val tvRepositori= rootView.findViewById<TextView>(R.id.tv_repositori)
+
                         Glide.with(this@DetailFragment)
                             .load(user.avatarUrl)
                             .into(ivImageDetail)
-                        tvName.text = user.login ?: ""
+                        tvName.text = Html.fromHtml("<b>Name:</b> ${user.name}")
+                        tvUserName.text = Html.fromHtml("<b>UserName:</b> ${user.login}")
 
 
-                        // Now, set up ViewPager and TabLayout here
-                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES)
+                        tvEmail.text = Html.fromHtml("<b>Email:</b> ${user.email ?: "-"}")
+
+
+                        tvRepositori.text = Html.fromHtml("<b>Repositori:</b> ${user.publicRepos}")
+
+
+
+                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES,username)
                         val viewPager: ViewPager2 = rootView.findViewById(R.id.view_pager)
                         viewPager.adapter = sectionsPagerAdapter
                         val tabs: TabLayout = rootView.findViewById(R.id.tabs)
@@ -87,13 +106,11 @@ class DetailFragment : Fragment() {
                         (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f
 
                     } else {
-                        // Handle unsuccessful response
-                    }
+                   }
                 }
 
                 override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
                     progressBarDetail.visibility = View.GONE
-                    // Handle network failure
                 }
             })
         }

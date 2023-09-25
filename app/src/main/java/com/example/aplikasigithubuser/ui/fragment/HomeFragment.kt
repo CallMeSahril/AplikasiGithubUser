@@ -1,3 +1,6 @@
+package com.example.aplikasigithubuser.ui.fragment
+
+import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +9,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
 import com.example.aplikasigithubuser.data.response.Itemsitem
 import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
-import com.example.aplikasigithubuser.ui.fragment.DetailFragment
 import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
 import com.example.aplikasigithubuser.ui.adapter.UserAdapter
 
@@ -31,7 +34,14 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         val adapter = UserAdapter(this)
 
         // Mengatur LinearLayoutManager
-        val layoutManager = LinearLayoutManager(requireContext())
+
+        val orientation = resources.configuration.orientation
+
+        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            GridLayoutManager(context, 2)
+        } else {
+            LinearLayoutManager(context)
+        }
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter

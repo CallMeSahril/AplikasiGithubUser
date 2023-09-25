@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aplikasigithubuser.data.response.FollowersResponse
+import com.example.aplikasigithubuser.data.response.FollowingResponseItem
 
 import com.example.aplikasigithubuser.data.response.GithubResponse
 import com.example.aplikasigithubuser.data.response.ItemFollowers
@@ -20,6 +21,9 @@ class MainViewModel : ViewModel() {
 
     private val _listFolower = MutableLiveData<List<ItemFollowers>>()
     val listReviewFolower: LiveData<List<ItemFollowers>> = _listFolower
+
+    private val _listFollowing = MutableLiveData<List<FollowingResponseItem>>()
+    val listReviewFollowing: LiveData<List<FollowingResponseItem>> = _listFollowing
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -56,6 +60,7 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
+                Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
                 // Handle network error here
                 _isLoading.postValue(false) // Set isLoading to false if there's an error
             }
@@ -85,6 +90,37 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<ItemFollowers>>, t: Throwable) {
+                Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
+
+                // Handle network error here
+                _isLoading.postValue(false) // Set isLoading to false if there's an error
+            }
+        })
+    }
+
+    fun fetchDataFollowing(username: String) {
+        _isLoading.postValue(true) // Set isLoading to true while fetching data
+
+        val apiService = ApiConfig.getApiService()
+        val call = apiService.getFollowing(username)
+
+        call.enqueue(object : Callback<List<FollowingResponseItem>> { // Use List<ItemFollowers> as the callback type
+            override fun onResponse(
+                call: Call<List<FollowingResponseItem>>,
+                response: Response<List<FollowingResponseItem>>
+            ) {
+                if (response.isSuccessful) {
+                    val followingList = response.body() ?: emptyList()
+                    _listFollowing.postValue(followingList)
+                    Log.i(TAG, "Fetch followers successful. Count: ${followingList.size}")
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+
+                _isLoading.postValue(false) // Set isLoading to false after fetching data
+            }
+
+            override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
                 Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
 
                 // Handle network error here

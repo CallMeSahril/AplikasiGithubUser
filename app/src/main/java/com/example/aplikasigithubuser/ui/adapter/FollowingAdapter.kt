@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.aplikasigithubuser.data.response.FollowingResponseItem
 import com.example.aplikasigithubuser.data.response.ItemFollowers
 import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
-
 import com.example.aplikasigithubuser.databinding.ItemUserFollowersBinding
 
-class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
-    androidx.recyclerview.widget.ListAdapter<ItemFollowers, FollowersAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FollowingAdapter(private val onItemClickListener: OnItemClickListener) :
+    androidx.recyclerview.widget.ListAdapter<FollowingResponseItem, FollowingAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     // Interface untuk menangani klik item
     interface OnItemClickListener {
-        fun onItemClick(item: ItemFollowers)
+        fun onItemClick(item: FollowingResponseItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -35,7 +35,7 @@ class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
         private val onItemClickListener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(review: ItemFollowers) {
+        fun bind(review: FollowingResponseItem) {
             binding.tvFullName.text = "${review.login}"
             binding.tvUrl.text = review.htmlUrl
 
@@ -55,12 +55,12 @@ class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
 
     companion object {
         const val TAG = "FollowersAdapter"
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemFollowers>() {
-            override fun areItemsTheSame(oldItem: ItemFollowers, newItem: ItemFollowers): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowingResponseItem>() {
+            override fun areItemsTheSame(oldItem: FollowingResponseItem, newItem: FollowingResponseItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ItemFollowers, newItem: ItemFollowers): Boolean {
+            override fun areContentsTheSame(oldItem: FollowingResponseItem, newItem: FollowingResponseItem): Boolean {
                 return oldItem == newItem
             }
         }

@@ -1,26 +1,28 @@
-import androidx.fragment.app.Fragment
+package com.example.aplikasigithubuser.ui.fragment
+
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
+import com.example.aplikasigithubuser.data.response.FollowingResponseItem
 import com.example.aplikasigithubuser.data.response.ItemFollowers
-import com.example.aplikasigithubuser.data.response.Itemsitem
-import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
+import com.example.aplikasigithubuser.databinding.FragmentFollowingBinding
 import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
-import com.example.aplikasigithubuser.ui.adapter.UserAdapter
+import com.example.aplikasigithubuser.ui.adapter.FollowingAdapter
 import com.example.aplikasigithubuser.ui.fragment.DetailFragment
 import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
 
-class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
-    private var _binding: FragmentFollowerBinding? = null
+
+class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.OnItemClickListener {
+    private var _binding: FragmentFollowingBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
 
@@ -28,34 +30,37 @@ class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("FollowerFragment", "onCreateView called")
+        Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "onCreateView called")
 
-        _binding = FragmentFollowerBinding.inflate(inflater, container, false)
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
         return rootView
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchDataFollowers("CallMeSahril")
+        viewModel.fetchDataFollowing(username)
 
-        // Tambahkan kode khusus yang ingin Anda jalankan saat onViewCreated di sini
-        // Contoh: menampilkan pesan Toast saat fragment dibuat
-        Toast.makeText(requireContext(), "Fragment Follower Created", Toast.LENGTH_SHORT).show()
+
 
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
 //        val adapter = FollowersAdapter(this)
 
         // Mengatur LinearLayoutManager
-        val layoutManager = LinearLayoutManager(requireContext())
-        binding.rvFollower.layoutManager = layoutManager
+        val orientation = resources.configuration.orientation
+
+        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            GridLayoutManager(context, 2)
+        } else {
+            LinearLayoutManager(context)
+        }
+        binding.rvFollowing.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
-        binding.rvFollower.addItemDecoration(itemDecoration)
+        binding.rvFollowing.addItemDecoration(itemDecoration)
 
 
-        viewModel.listReviewFolower.observe(viewLifecycleOwner) { consumerReviews ->
-            Log.i("FollowerFragment", "Data changed: ${consumerReviews.size} items")
+        viewModel.listReviewFollowing.observe(viewLifecycleOwner) { consumerReviews ->
+            Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "Data changed: ${consumerReviews.size} items")
             setReviewData(consumerReviews)
         }
 
@@ -64,27 +69,31 @@ class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
         }
 
 
-
     }
-    private fun setReviewData(consumerReviews: List<ItemFollowers>) {
-        val adapter = FollowersAdapter(this)
+    private fun setReviewData(consumerReviews: List<FollowingResponseItem>) {
+        val adapter = FollowingAdapter(this)
         adapter.submitList(consumerReviews)
-        binding.rvFollower.adapter = adapter
+        binding.rvFollowing.adapter = adapter
+
+        if (consumerReviews.isEmpty()) {
+            binding.emptyDataText.visibility = View.VISIBLE
+        } else {
+            binding.emptyDataText.visibility = View.GONE
+        }
 
     }
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onItemClick(item: ItemFollowers) {
+    override fun onItemClick(item: FollowingResponseItem) {
         val username = item.login
-
+        Log.i("Username", "onItemClick Following: ${item.login} ")
         // Membuat instance fragment detail dan mengirim data
         val detailFragment = DetailFragment.newInstance("$username")
 
@@ -94,4 +103,8 @@ class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+
+
+
 }
