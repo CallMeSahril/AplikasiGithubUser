@@ -5,56 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@color/white"
     tools:context=".ui.fragment.DetailFragment">
 
-    <ImageView
-        android:id="@+id/iv_image_detail"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/baseline_arrow_back_ios_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_image_detail"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_image_detail"
-        app:layout_constraintStart_toStartOf="@+id/iv_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/iv_image_detail" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="100dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:text="TextView"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_name" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginEnd="100dp"-->
-<!--        android:text="TextView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_name" />-->
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_detail"
+        app:layout_constraintTop_toTopOf="@+id/iv_image_detail" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name">
+        app:layout_constraintTop_toBottomOf="@+id/iv_image_detail">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -68,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBarDetail"
         style="?android:attr/progressBarStyle"
@@ -77,4 +74,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detail User"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_repositori"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_user"
+        app:layout_constraintStart_toStartOf="@+id/tv_name_user"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_user" />
+
+    <TextView
+        android:id="@+id/tv_repositori"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_image_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_email" />
+
+    <TextView
+        android:id="@+id/tv_name_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

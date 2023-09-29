@@ -1,9 +1,10 @@
-package com.example.aplikasigithubuser
+package com.example.aplikasigithubuser.ui.activity
 
-import HomeFragment
+import com.example.aplikasigithubuser.ui.fragment.HomeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.aplikasigithubuser.R
 
 
 class MainActivity : AppCompatActivity() {

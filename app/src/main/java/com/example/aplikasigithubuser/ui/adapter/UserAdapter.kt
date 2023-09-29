@@ -36,6 +36,7 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
 
         fun bind(review: Itemsitem) {
             binding.tvFullName.text = "${review.login}"
+            binding.tvUrl.text = review.htmlUrl
             Glide.with(binding.root.context)
                 .load(review.avatarUrl)
                 .into(binding.ivImage)
