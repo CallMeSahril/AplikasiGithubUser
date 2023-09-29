@@ -5,4 +5,8 @@
     <string name="searchbar_hint">Masukkan kata</string>
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
+    <string name="favorite">Favorite</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="search">search</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>
