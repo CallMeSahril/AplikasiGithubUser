@@ -1,0 +1,1311 @@
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id(\"com.android.application\") version \"8.1.1\" apply false\r\n    id(\"org.jetbrains.kotlin.android\") version \"1.9.0\" apply false\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	
++++ b/build.gradle.kts	
+@@ -2,4 +2,5 @@
+ plugins {
+     id("com.android.application") version "8.1.1" apply false
+     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
++    id("com.google.devtools.ksp") version "1.8.22-1.0.11" apply false
+ }
+\ No newline at end of file
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id(\"com.android.application\")\r\n    id(\"org.jetbrains.kotlin.android\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.aplikasigithubuser\"\r\n    compileSdk = 33\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.aplikasigithubuser\"\r\n        minSdk = 24\r\n        targetSdk = 33\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = \"1.8\"\r\n    }\r\n\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation (\"com.github.bumptech.glide:glide:4.16.0\")\r\n    annotationProcessor (\"com.github.bumptech.glide:compiler:4.16.0\")\r\n    implementation (\"androidx.viewpager2:viewpager2:1.0.0\")\r\n    implementation(\"com.squareup.retrofit2:retrofit:2.9.0\")\r\n    implementation(\"com.squareup.retrofit2:converter-gson:2.9.0\")\r\n    implementation(\"com.squareup.okhttp3:logging-interceptor:4.11.0\")\r\n    implementation (\"androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0\")\r\n    implementation (\"androidx.lifecycle:lifecycle-livedata-ktx:2.6.0\")\r\n    implementation(\"androidx.core:core-ktx:1.9.0\")\r\n    implementation(\"androidx.appcompat:appcompat:1.6.1\")\r\n    implementation(\"com.google.android.material:material:1.9.0\")\r\n    implementation(\"androidx.constraintlayout:constraintlayout:2.1.4\")\r\n    testImplementation(\"junit:junit:4.13.2\")\r\n    androidTestImplementation(\"androidx.test.ext:junit:1.1.5\")\r\n    androidTestImplementation(\"androidx.test.espresso:espresso-core:3.5.1\")\r\n    implementation (\"androidx.fragment:fragment-ktx:1.2.5\")\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	
++++ b/app/build.gradle.kts	
+@@ -1,6 +1,8 @@
+ plugins {
+     id("com.android.application")
+     id("org.jetbrains.kotlin.android")
++    id("com.google.devtools.ksp")
++    id("kotlin-parcelize")
+ }
+ 
+ android {
+@@ -56,6 +58,13 @@
+     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+     implementation ("androidx.fragment:fragment-ktx:1.2.5")
++    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
++    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
++    implementation("androidx.datastore:datastore-preferences:1.0.0")
+ 
+ 
++    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
++    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
++    implementation("androidx.room:room-runtime:2.5.2")
++    ksp("androidx.room:room-compiler:2.5.2")
+ }
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	
++++ /dev/null	
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: app/src/main/res/layout/item_user_followers.xml
+===================================================================
+diff --git a/app/src/main/res/layout/item_user_followers.xml b/app/src/main/res/layout/item_user_followers.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/item_user_followers.xml	
++++ /dev/null	
+@@ -1,59 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content">
+-
+-    <androidx.constraintlayout.widget.ConstraintLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent">
+-
+-        <com.google.android.material.imageview.ShapeableImageView
+-            android:id="@+id/iv_image_followers"
+-            android:layout_width="0dp"
+-            android:layout_height="0dp"
+-            android:layout_marginStart="10dp"
+-            android:layout_marginTop="10dp"
+-            android:layout_marginEnd="10dp"
+-            android:layout_marginBottom="10dp"
+-            android:scaleType="centerCrop"
+-            app:shapeAppearanceOverlay="@style/roundedImageView"
+-
+-            app:layout_constraintBottom_toTopOf="@+id/guideline"
+-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            tools:srcCompat="@tools:sample/avatars" />
+-
+-        <androidx.constraintlayout.widget.Guideline
+-            android:id="@+id/guideline"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:orientation="horizontal"
+-            app:layout_constraintGuide_begin="101dp" />
+-
+-        <androidx.constraintlayout.widget.Guideline
+-            android:id="@+id/guideline2"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical"
+-            app:layout_constraintGuide_percent="0.24817519" />
+-
+-        <TextView
+-            android:id="@+id/tv_full_name_followers"
+-            android:layout_width="0dp"
+-            android:layout_height="wrap_content"
+-            android:layout_marginEnd="10dp"
+-            android:text="Nama"
+-            android:textSize="16sp"
+-            android:textStyle="bold"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="1.0"
+-            app:layout_constraintStart_toStartOf="@+id/guideline2"
+-            app:layout_constraintTop_toTopOf="parent" />
+-
+-
+-    </androidx.constraintlayout.widget.ConstraintLayout>
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	
++++ /dev/null	
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <runningDeviceTargetSelectedWithDropDown>
+-      <Target>
+-        <type value="RUNNING_DEVICE_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\sahri\.android\avd\Pixel_3_API_30_1.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </runningDeviceTargetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2023-09-18T06:32:53.888475100Z" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/FollowingFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/FollowingFragment.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/FollowingFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/FollowingFragment.kt	
++++ /dev/null	
+@@ -1,91 +0,0 @@
+-package com.example.aplikasigithubuser.ui
+-
+-import android.os.Bundle
+-import android.util.Log
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import android.widget.Toast
+-import androidx.fragment.app.viewModels
+-import androidx.recyclerview.widget.LinearLayoutManager
+-import androidx.recyclerview.widget.RecyclerView
+-import com.example.aplikasigithubuser.R
+-import com.example.aplikasigithubuser.data.response.Itemsitem
+-import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
+-import com.example.aplikasigithubuser.ui.adapter.UserAdapter
+-import com.example.aplikasigithubuser.ui.fragment.DetailFragment
+-import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+-
+-
+-class FollowingFragment : Fragment() ,UserAdapter.OnItemClickListener {
+-    private var _binding: FragmentFollowerBinding? = null
+-    private val binding get() = _binding!!
+-    private val viewModel: MainViewModel by viewModels()
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        Log.i("FollowerFragment", "onCreateView called")
+-
+-        _binding = FragmentFollowerBinding.inflate(inflater, container, false)
+-        val rootView = binding.root
+-
+-        return rootView
+-    }
+-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+-        super.onViewCreated(view, savedInstanceState)
+-
+-        // Tambahkan kode khusus yang ingin Anda jalankan saat onViewCreated di sini
+-        // Contoh: menampilkan pesan Toast saat fragment dibuat
+-        Toast.makeText(requireContext(), "Fragment Follower Created", Toast.LENGTH_SHORT).show()
+-
+-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
+-        val adapter = UserAdapter(this)
+-
+-        // Mengatur LinearLayoutManager
+-        val layoutManager = LinearLayoutManager(requireContext())
+-        recyclerView.layoutManager = layoutManager
+-
+-        recyclerView.adapter = adapter
+-
+-        // Observe LiveData for isLoading
+-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+-            if (isLoading) {
+-                // Tampilkan ProgressBar jika isLoading adalah true
+-                binding.progressBar.visibility = View.VISIBLE
+-            } else {
+-                // Sembunyikan ProgressBar jika isLoading adalah false
+-                binding.progressBar.visibility = View.GONE
+-            }
+-        }
+-
+-        // Observe LiveData here and update the adapter data
+-        viewModel.listReview.observe(viewLifecycleOwner) { items ->
+-            adapter.submitList(items)
+-        }
+-    }
+-
+-    override fun onDestroyView() {
+-        super.onDestroyView()
+-        _binding = null
+-    }
+-
+-    override fun onItemClick(item: Itemsitem) {
+-        val username = item.login
+-
+-        // Membuat instance fragment detail dan mengirim data
+-        val detailFragment = DetailFragment.newInstance("$username")
+-
+-        // Mengganti fragment saat item diklik
+-        val transaction = parentFragmentManager.beginTransaction()
+-        transaction.replace(R.id.frame_container, detailFragment)
+-        transaction.addToBackStack(null)
+-        transaction.commit()
+-    }
+-
+-
+-
+-
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/data/local/entity/Favorite.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/Favorite.kt b/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/Favorite.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/Favorite.kt	
+@@ -0,0 +1,20 @@
++package com.example.aplikasigithubuser.data.local.entity
++
++import android.os.Parcelable
++import androidx.room.ColumnInfo
++import androidx.room.Entity
++import androidx.room.PrimaryKey
++import kotlinx.parcelize.Parcelize
++
++@Entity
++@Parcelize
++data class Favorite (
++    @PrimaryKey(autoGenerate = true)
++    @ColumnInfo(name = "id")
++    var id: Int = 0,
++    @ColumnInfo(name = "username")
++    var username: String = "",
++    @ColumnInfo(name = "avatarURL")
++    var avatarUrl: String? = null,
++
++) : Parcelable
+Index: app/src/main/java/com/example/aplikasigithubuser/data/local/entity/FavoriteDao.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/FavoriteDao.kt b/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/FavoriteDao.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/local/entity/FavoriteDao.kt	
+@@ -0,0 +1,17 @@
++package com.example.aplikasigithubuser.data.local.entity
++
++import androidx.lifecycle.LiveData
++import androidx.room.Delete
++import androidx.room.Insert
++import androidx.room.OnConflictStrategy
++import androidx.room.Query
++
++interface FavoriteDao {
++    @Insert(onConflict = OnConflictStrategy.IGNORE)
++    fun insert(favo: Favorite)
++    @Delete
++    fun delete(favo: Favorite)
++
++    @Query("SELECT * from favorite ORDER BY id ASC")
++    fun getAllNotes(): LiveData<List<Favorite>>
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteViewModel.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteViewModel.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteViewModel.kt	
+@@ -0,0 +1,12 @@
++package com.example.aplikasigithubuser.ui.viewmodel
++
++import android.app.Application
++import androidx.lifecycle.LiveData
++import androidx.lifecycle.ViewModel
++import com.example.aplikasigithubuser.data.local.entity.Favorite
++import com.example.aplikasigithubuser.data.repository.FavoriteRepository
++
++class FavoriteViewModel(application: Application):ViewModel() {
++    private val mFavoriteRepository: FavoriteRepository = FavoriteRepository(application)
++    fun getAllNotes(): LiveData<List<Favorite>> = mFavoriteRepository.getAllNotes()
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowingAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowingAdapter.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowingAdapter.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowingAdapter.kt	
+@@ -0,0 +1,67 @@
++package com.example.aplikasigithubuser.ui.adapter
++
++import android.util.Log
++import android.view.LayoutInflater
++import android.view.ViewGroup
++import androidx.recyclerview.widget.DiffUtil
++import androidx.recyclerview.widget.RecyclerView
++import com.bumptech.glide.Glide
++import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
++import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
++
++class FollowingAdapter(private val onItemClickListener: OnItemClickListener) :
++    androidx.recyclerview.widget.ListAdapter<FollowingResponseItem, FollowingAdapter.MyViewHolder>(DIFF_CALLBACK) {
++
++    // Interface untuk menangani klik item
++    interface OnItemClickListener {
++        fun onItemClick(item: FollowingResponseItem)
++    }
++
++    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
++        val binding =
++            ItemUserCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
++        return MyViewHolder(binding, onItemClickListener)
++    }
++
++    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
++        val review = getItem(position)
++        holder.bind(review)
++    }
++
++    class MyViewHolder(
++        private val binding: ItemUserCardBinding,
++        private val onItemClickListener: OnItemClickListener
++    ) : RecyclerView.ViewHolder(binding.root) {
++
++        fun bind(review: FollowingResponseItem) {
++            binding.tvFullName.text = "${review.login}"
++            binding.tvUrl.text = review.htmlUrl
++
++            Glide.with(binding.root.context)
++                .load(review.avatarUrl)
++                .into(binding.ivImage)
++
++
++            Log.i(TAG, "${review.login}")
++
++            // Tambahkan kode untuk menangani klik item di sini
++            itemView.setOnClickListener {
++                onItemClickListener.onItemClick(review)
++            }
++        }
++    }
++
++    companion object {
++        const val TAG = "FollowersAdapter"
++        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowingResponseItem>() {
++            override fun areItemsTheSame(oldItem: FollowingResponseItem, newItem: FollowingResponseItem): Boolean {
++                return oldItem == newItem
++            }
++
++            override fun areContentsTheSame(oldItem: FollowingResponseItem, newItem: FollowingResponseItem): Boolean {
++                return oldItem == newItem
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_splash_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_splash_screen.xml b/app/src/main/res/layout/activity_splash_screen.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/activity_splash_screen.xml	
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ui.activity.SplashScreen">
++
++    <ImageView
++        android:id="@+id/imageView3"
++        android:layout_width="200dp"
++        android:layout_height="200dp"
++        android:src="@drawable/ic_github"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/activity/SplashScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SplashScreen.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SplashScreen.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SplashScreen.kt	
+@@ -0,0 +1,22 @@
++package com.example.aplikasigithubuser.ui.activity
++
++import android.content.Intent
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import com.example.aplikasigithubuser.R
++
++class SplashScreen : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_splash_screen)
++
++        val splashScreenDuration = 1000
++        val mainActivityIntent = Intent(this, MainActivity::class.java)
++
++        Thread {
++            Thread.sleep(splashScreenDuration.toLong())
++            startActivity(mainActivityIntent)
++            finish()
++        }.start()
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_following.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ui.FollowingFragment\">\r\n\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_following\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_following.xml b/app/src/main/res/layout/fragment_following.xml
+--- a/app/src/main/res/layout/fragment_following.xml	
++++ b/app/src/main/res/layout/fragment_following.xml	
+@@ -4,15 +4,54 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".ui.FollowingFragment">
++    tools:context=".ui.fragment.FollowingFragment">
+ 
+ 
+     <androidx.recyclerview.widget.RecyclerView
++        android:layout_marginStart="20dp"
++        android:layout_marginTop="10dp"
++        android:layout_marginEnd="20dp"
+         android:id="@+id/rv_following"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        tools:listitem="@layout/item_user_card"
++        />
++
++    <ProgressBar
++        android:id="@+id/progressBar"
++        style="?android:attr/progressBarStyle"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/empty_data_text"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Data Kosong"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/rv_following" />
++
++    <!--    <TextView-->
++<!--        android:id="@+id/empty_data_text"-->
++<!--        android:layout_width="wrap_content"-->
++<!--        android:layout_height="wrap_content"-->
++<!--        android:text="Data Kosong"-->
++<!--        android:textColor="@android:color/black"-->
++<!--        android:textSize="16sp"-->
++<!--        android:visibility="gone"-->
++<!--        app:layout_constraintBottom_toBottomOf="@+id/rv_following"-->
++<!--        app:layout_constraintEnd_toEndOf="parent"-->
++<!--        app:layout_constraintStart_toStartOf="parent"-->
++<!--        app:layout_constraintTop_toTopOf="parent" />-->
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ui.HomeFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n\r\n    <com.google.android.material.search.SearchBar\r\n        android:id=\"@+id/searchBar\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginHorizontal=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:hint=\"@string/searchbar_hint\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"></com.google.android.material.search.SearchBar>\r\n\r\n    <com.google.android.material.search.SearchView\r\n        android:id=\"@+id/searchView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:hint=\"@string/searchbar_hint\"\r\n        app:layout_anchor=\"@id/searchBar\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n\r\n    </com.google.android.material.search.SearchView>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/recyclerView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:layout_marginEnd=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/searchBar\"\r\n        tools:listitem=\"@layout/item_user_card\"\r\n        tools:itemCount=\"10\"/>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/progressBar\"\r\n        style=\"?android:attr/progressBarStyle\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_home.xml b/app/src/main/res/layout/fragment_home.xml
+--- a/app/src/main/res/layout/fragment_home.xml	
++++ b/app/src/main/res/layout/fragment_home.xml	
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".ui.HomeFragment">
++    tools:context=".ui.fragment.HomeFragment">
+ 
+     <!-- TODO: Update blank fragment layout -->
+ 
+@@ -13,11 +13,10 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="16dp"
+-        android:layout_marginTop="16dp"
+         android:hint="@string/searchbar_hint"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"></com.google.android.material.search.SearchBar>
++        app:layout_constraintTop_toBottomOf="@+id/toolbar"></com.google.android.material.search.SearchBar>
+ 
+     <com.google.android.material.search.SearchView
+         android:id="@+id/searchView"
+@@ -29,8 +28,6 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent">
+-
+-
+     </com.google.android.material.search.SearchView>
+ 
+     <androidx.recyclerview.widget.RecyclerView
+@@ -57,4 +54,16 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
++    <!-- Toolbar -->
++    <androidx.appcompat.widget.Toolbar
++        android:id="@+id/toolbar"
++        android:layout_width="match_parent"
++        android:layout_height="?attr/actionBarSize"
++        android:background="?attr/colorPrimary"
++        android:elevation="4dp"
++        android:theme="?attr/actionBarTheme"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"/>
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowingFragment.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowingFragment.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowingFragment.kt	
+@@ -0,0 +1,110 @@
++package com.example.aplikasigithubuser.ui.fragment
++
++import android.content.res.Configuration
++import android.os.Bundle
++import android.util.Log
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import androidx.fragment.app.viewModels
++import androidx.recyclerview.widget.DividerItemDecoration
++import androidx.recyclerview.widget.GridLayoutManager
++import androidx.recyclerview.widget.LinearLayoutManager
++import com.example.aplikasigithubuser.R
++import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
++import com.example.aplikasigithubuser.databinding.FragmentFollowingBinding
++import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
++import com.example.aplikasigithubuser.ui.adapter.FollowingAdapter
++import com.example.aplikasigithubuser.ui.fragment.DetailFragment
++import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
++
++
++class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.OnItemClickListener {
++    private var _binding: FragmentFollowingBinding? = null
++    private val binding get() = _binding!!
++    private val viewModel: MainViewModel by viewModels()
++
++    override fun onCreateView(
++        inflater: LayoutInflater, container: ViewGroup?,
++        savedInstanceState: Bundle?
++    ): View? {
++        Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "onCreateView called")
++
++        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
++        val rootView = binding.root
++
++        return rootView
++    }
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++        viewModel.fetchDataFollowing(username)
++
++
++
++//        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
++//        val adapter = FollowersAdapter(this)
++
++        // Mengatur LinearLayoutManager
++        val orientation = resources.configuration.orientation
++
++        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
++            GridLayoutManager(context, 2)
++        } else {
++            LinearLayoutManager(context)
++        }
++        binding.rvFollowing.layoutManager = layoutManager
++        val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
++        binding.rvFollowing.addItemDecoration(itemDecoration)
++
++
++        viewModel.listReviewFollowing.observe(viewLifecycleOwner) { consumerReviews ->
++            Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "Data changed: ${consumerReviews.size} items")
++            setReviewData(consumerReviews)
++        }
++
++        viewModel.isLoading.observe(viewLifecycleOwner) {
++            showLoading(it)
++        }
++
++
++    }
++    private fun setReviewData(consumerReviews: List<FollowingResponseItem>) {
++        val adapter = FollowingAdapter(this)
++        adapter.submitList(consumerReviews)
++        binding.rvFollowing.adapter = adapter
++
++        if (consumerReviews.isEmpty()) {
++            binding.emptyDataText.visibility = View.VISIBLE
++        } else {
++            binding.emptyDataText.visibility = View.GONE
++        }
++
++    }
++    private fun showLoading(isLoading: Boolean) {
++        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
++    }
++
++    override fun onDestroyView() {
++        super.onDestroyView()
++        _binding = null
++    }
++
++    override fun onItemClick(item: FollowingResponseItem) {
++        val username = item.login
++        Log.i("Username", "onItemClick Following: ${item.login} ")
++        // Membuat instance fragment detail dan mengirim data
++        val detailFragment = DetailFragment.newInstance("$username")
++
++        // Mengganti fragment saat item diklik
++        val transaction = parentFragmentManager.beginTransaction()
++        transaction.replace(R.id.frame_container, detailFragment)
++        transaction.addToBackStack(null)
++        transaction.commit()
++    }
++
++
++
++
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_favorite.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_favorite.xml b/app/src/main/res/layout/activity_favorite.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/activity_favorite.xml	
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ui.activity.FavoriteActivity">
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/activity/FavoriteActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/activity/FavoriteActivity.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/FavoriteActivity.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/FavoriteActivity.kt	
+@@ -0,0 +1,12 @@
++package com.example.aplikasigithubuser.ui.activity
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import com.example.aplikasigithubuser.R
++
++class FavoriteActivity : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_favorite)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/menu/app_bar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/app_bar.xml b/app/src/main/res/menu/app_bar.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/menu/app_bar.xml	
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <group android:menuCategory="container">
++        <item
++            android:id="@+id/setting"
++            android:icon="@drawable/ic_settings"
++            android:title="@string/search"
++            app:showAsAction="ifRoom" />
++
++        <item
++            android:id="@+id/favorite"
++            android:icon="@drawable/ic_favorite"
++            android:title="@string/favorite"
++            app:showAsAction="always" />
++    </group>
++
++</menu>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/ViewModelFactory.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/ViewModelFactory.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/ViewModelFactory.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/ViewModelFactory.kt	
+@@ -0,0 +1,16 @@
++package com.example.aplikasigithubuser.ui.viewmodel
++
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.ViewModelProvider
++import com.example.aplikasigithubuser.utils.SettingPreferences
++
++class ViewModelFactory(private val pref: SettingPreferences) : ViewModelProvider.NewInstanceFactory() {
++
++    @Suppress("UNCHECKED_CAST")
++    override fun <T : ViewModel> create(modelClass: Class<T>): T {
++        if (modelClass.isAssignableFrom(ThemeViewModel::class.java)) {
++            return ThemeViewModel(pref) as T
++        }
++        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/activity/SettingActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SettingActivity.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SettingActivity.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/SettingActivity.kt	
+@@ -0,0 +1,40 @@
++package com.example.aplikasigithubuser.ui.activity
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.widget.CompoundButton
++import androidx.appcompat.app.AppCompatDelegate
++import androidx.lifecycle.ViewModelProvider
++import com.example.aplikasigithubuser.R
++import com.example.aplikasigithubuser.ui.viewmodel.ThemeViewModel
++import com.example.aplikasigithubuser.ui.viewmodel.ViewModelFactory
++import com.example.aplikasigithubuser.utils.SettingPreferences
++import com.example.aplikasigithubuser.utils.dataStore
++import com.google.android.material.switchmaterial.SwitchMaterial
++
++class SettingActivity : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_setting)
++
++        val switchTheme = findViewById<SwitchMaterial>(R.id.switch_theme)
++
++        val pref = SettingPreferences.getInstance(application.dataStore)
++        val mainViewModel = ViewModelProvider(this,ViewModelFactory(pref)).get(
++            ThemeViewModel::class.java
++        )
++        mainViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
++            if (isDarkModeActive) {
++                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
++                switchTheme.isChecked = true
++            } else {
++                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
++                switchTheme.isChecked = false
++            }
++        }
++
++        switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
++            mainViewModel.saveThemeSetting(isChecked)
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Aplikasi Github User</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"searchbar_hint\">Masukkan kata</string>\r\n    <string name=\"tab_text_1\">Follower</string>\r\n    <string name=\"tab_text_2\">Following</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -5,4 +5,8 @@
+     <string name="searchbar_hint">Masukkan kata</string>
+     <string name="tab_text_1">Follower</string>
+     <string name="tab_text_2">Following</string>
++    <string name="favorite">Favorite</string>
++    <string name="pengaturan">Pengaturan</string>
++    <string name="search">search</string>
++    <string name="dark_mode">Dark Mode</string>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/values-night/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Base.Theme.AplikasiGithubUser\" parent=\"Theme.Material3.Light.NoActionBar\">\r\n        <!-- Customize your dark theme here. -->\r\n        <!-- <item name=\"colorPrimary\">@color/my_dark_primary</item> -->\r\n    </style>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values-night/themes.xml b/app/src/main/res/values-night/themes.xml
+--- a/app/src/main/res/values-night/themes.xml	
++++ b/app/src/main/res/values-night/themes.xml	
+@@ -1,6 +1,6 @@
+ <resources xmlns:tools="http://schemas.android.com/tools">
+     <!-- Base application theme. -->
+-    <style name="Base.Theme.AplikasiGithubUser" parent="Theme.Material3.Light.NoActionBar">
++    <style name="Base.Theme.AplikasiGithubUser" parent="Theme.Material3.DayNight.NoActionBar">
+         <!-- Customize your dark theme here. -->
+         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+     </style>
+Index: app/src/main/java/com/example/aplikasigithubuser/data/repository/FavoriteRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/repository/FavoriteRepository.kt b/app/src/main/java/com/example/aplikasigithubuser/data/repository/FavoriteRepository.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/repository/FavoriteRepository.kt	
+@@ -0,0 +1,31 @@
++package com.example.aplikasigithubuser.data.repository
++
++import android.app.Application
++import androidx.lifecycle.LiveData
++import com.example.aplikasigithubuser.data.local.entity.Favorite
++import com.example.aplikasigithubuser.data.local.entity.FavoriteDao
++import com.example.aplikasigithubuser.data.local.room.FavoriteRoomDatabase
++import java.util.concurrent.ExecutorService
++import java.util.concurrent.Executors
++
++class FavoriteRepository(application: Application) {
++    private val mFavoriteDao: FavoriteDao
++    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
++
++    init {
++        val db = FavoriteRoomDatabase.getDatabase(application)
++        mFavoriteDao = db.favoDao()
++    }
++
++    fun getAllNotes(): LiveData<List<Favorite>> = mFavoriteDao.getAllNotes()
++
++    fun insert(favorite: Favorite) {
++        executorService.execute { mFavoriteDao.insert(favorite) }
++    }
++
++    fun delete(favorite: Favorite) {
++        executorService.execute { mFavoriteDao.delete(favorite) }
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/utils/SettingPreferences.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/utils/SettingPreferences.kt b/app/src/main/java/com/example/aplikasigithubuser/utils/SettingPreferences.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/utils/SettingPreferences.kt	
+@@ -0,0 +1,43 @@
++package com.example.aplikasigithubuser.utils
++
++import android.content.Context
++import androidx.datastore.core.DataStore
++import androidx.datastore.preferences.core.Preferences
++import androidx.datastore.preferences.core.booleanPreferencesKey
++import androidx.datastore.preferences.core.edit
++import androidx.datastore.preferences.preferencesDataStore
++import kotlinx.coroutines.flow.Flow
++import kotlinx.coroutines.flow.map
++
++val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
++
++class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>) {
++
++    private val THEME_KEY = booleanPreferencesKey("theme_setting")
++
++    fun getThemeSetting(): Flow<Boolean> {
++        return dataStore.data.map { preferences ->
++            preferences[THEME_KEY] ?: false
++        }
++    }
++
++    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
++        dataStore.edit { preferences ->
++            preferences[THEME_KEY] = isDarkModeActive
++        }
++    }
++
++    companion object {
++        @Volatile
++        private var INSTANCE: SettingPreferences? = null
++
++        fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences {
++            return INSTANCE ?: synchronized(this) {
++                val instance = SettingPreferences(dataStore)
++                INSTANCE = instance
++                instance
++            }
++        }
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_settings.xml b/app/src/main/res/drawable/ic_settings.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/drawable/ic_settings.xml	
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#000000"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.12,-0.61l-1.92,-3.32c-0.12,-0.22 -0.37,-0.29 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94L14.4,2.81c-0.04,-0.24 -0.24,-0.41 -0.48,-0.41h-3.84c-0.24,0 -0.43,0.17 -0.47,0.41L9.25,5.35C8.66,5.59 8.12,5.92 7.63,6.29L5.24,5.33c-0.22,-0.08 -0.47,0 -0.59,0.22L2.74,8.87C2.62,9.08 2.66,9.34 2.86,9.48l2.03,1.58C4.84,11.36 4.8,11.69 4.8,12s0.02,0.64 0.07,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.41 -0.12,0.61l1.92,3.32c0.12,0.22 0.37,0.29 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.05,0.24 0.24,0.41 0.48,0.41h3.84c0.24,0 0.44,-0.17 0.47,-0.41l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.08 0.47,0 0.59,-0.22l1.92,-3.32c0.12,-0.22 0.07,-0.47 -0.12,-0.61L19.14,12.94zM12,15.6c-1.98,0 -3.6,-1.62 -3.6,-3.6s1.62,-3.6 3.6,-3.6s3.6,1.62 3.6,3.6S13.98,15.6 12,15.6z"/>
++</vector>
+Index: app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowingResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowingResponse.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowingResponse.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowingResponse.kt	
+@@ -0,0 +1,66 @@
++package com.example.aplikasigithubuser.data.remote.response
++
++import com.google.gson.annotations.SerializedName
++
++data class FollowingResponse(
++
++	@field:SerializedName("FollowingResponse")
++	val followingResponse: List<FollowingResponseItem?>? = null
++)
++
++data class FollowingResponseItem(
++
++	@field:SerializedName("gists_url")
++	val gistsUrl: String? = null,
++
++	@field:SerializedName("repos_url")
++	val reposUrl: String? = null,
++
++	@field:SerializedName("following_url")
++	val followingUrl: String? = null,
++
++	@field:SerializedName("starred_url")
++	val starredUrl: String? = null,
++
++	@field:SerializedName("login")
++	val login: String? = null,
++
++	@field:SerializedName("followers_url")
++	val followersUrl: String? = null,
++
++	@field:SerializedName("type")
++	val type: String? = null,
++
++	@field:SerializedName("url")
++	val url: String? = null,
++
++	@field:SerializedName("subscriptions_url")
++	val subscriptionsUrl: String? = null,
++
++	@field:SerializedName("received_events_url")
++	val receivedEventsUrl: String? = null,
++
++	@field:SerializedName("avatar_url")
++	val avatarUrl: String? = null,
++
++	@field:SerializedName("events_url")
++	val eventsUrl: String? = null,
++
++	@field:SerializedName("html_url")
++	val htmlUrl: String? = null,
++
++	@field:SerializedName("site_admin")
++	val siteAdmin: Boolean? = null,
++
++	@field:SerializedName("id")
++	val id: Int? = null,
++
++	@field:SerializedName("gravatar_id")
++	val gravatarId: String? = null,
++
++	@field:SerializedName("node_id")
++	val nodeId: String? = null,
++
++	@field:SerializedName("organizations_url")
++	val organizationsUrl: String? = null
++)
+Index: app/src/main/java/com/example/aplikasigithubuser/data/response/DetailResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/response/DetailResponse.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/DetailResponse.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/data/response/DetailResponse.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/data/remote/response/DetailResponse.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/data/response/DetailResponse.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/DetailResponse.kt	
+@@ -1,4 +1,4 @@
+-package com.example.aplikasigithubuser.data.response
++package com.example.aplikasigithubuser.data.remote.response
+ 
+ import com.google.gson.annotations.SerializedName
+ 
+Index: app/src/main/java/com/example/aplikasigithubuser/data/response/FollowersResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/response/FollowersResponse.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowersResponse.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/data/response/FollowersResponse.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowersResponse.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/data/response/FollowersResponse.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/FollowersResponse.kt	
+@@ -1,4 +1,4 @@
+-package com.example.aplikasigithubuser.data.response
++package com.example.aplikasigithubuser.data.remote.response
+ 
+ import com.google.gson.annotations.SerializedName
+ 
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/adapter/SectionsPagerAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aplikasigithubuser.ui.adapter\r\n\r\nimport FollowerFragment\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.fragment.app.FragmentActivity\r\nimport androidx.viewpager2.adapter.FragmentStateAdapter\r\nimport com.example.aplikasigithubuser.ui.FollowingFragment\r\n\r\nclass SectionsPagerAdapter(activity: FragmentActivity,private val tabTitles: Array<String>) : FragmentStateAdapter(activity) {\r\n    override fun getItemCount(): Int {\r\n        return 2\r\n    }\r\n\r\n    override fun createFragment(position: Int): Fragment {\r\n        var fragment: Fragment? = null\r\n        when (position) {\r\n            0 -> fragment = FollowerFragment()\r\n            1 -> fragment = FollowingFragment()\r\n        }\r\n        return fragment as Fragment\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/SectionsPagerAdapter.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/SectionsPagerAdapter.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/SectionsPagerAdapter.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/SectionsPagerAdapter.kt	
+@@ -1,12 +1,13 @@
+ package com.example.aplikasigithubuser.ui.adapter
+ 
+-import FollowerFragment
++import com.example.aplikasigithubuser.ui.fragment.FollowerFragment
+ import androidx.fragment.app.Fragment
+ import androidx.fragment.app.FragmentActivity
+ import androidx.viewpager2.adapter.FragmentStateAdapter
+-import com.example.aplikasigithubuser.ui.FollowingFragment
++import com.example.aplikasigithubuser.ui.fragment.FollowingFragment
+ 
+-class SectionsPagerAdapter(activity: FragmentActivity,private val tabTitles: Array<String>) : FragmentStateAdapter(activity) {
++class SectionsPagerAdapter(activity: FragmentActivity, private val tabTitles: Array<String>,  val username: String) : FragmentStateAdapter(activity) {
++
+     override fun getItemCount(): Int {
+         return 2
+     }
+@@ -14,10 +15,9 @@
+     override fun createFragment(position: Int): Fragment {
+         var fragment: Fragment? = null
+         when (position) {
+-            0 -> fragment = FollowerFragment()
+-            1 -> fragment = FollowingFragment()
++            0 -> fragment = FollowerFragment(username)
++            1 -> fragment = FollowingFragment(username)
+         }
+         return fragment as Fragment
+     }
+-
+-}
+\ No newline at end of file
++}
+Index: app/src/main/java/com/example/aplikasigithubuser/data/local/room/FavoriteRoomDatabase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/local/room/FavoriteRoomDatabase.kt b/app/src/main/java/com/example/aplikasigithubuser/data/local/room/FavoriteRoomDatabase.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/local/room/FavoriteRoomDatabase.kt	
+@@ -0,0 +1,28 @@
++package com.example.aplikasigithubuser.data.local.room
++
++import android.content.Context
++import androidx.room.Database
++import androidx.room.Room
++import androidx.room.RoomDatabase
++import com.example.aplikasigithubuser.data.local.entity.Favorite
++import com.example.aplikasigithubuser.data.local.entity.FavoriteDao
++
++@Database(entities = [Favorite::class], version = 1)
++abstract class FavoriteRoomDatabase : RoomDatabase() {
++    abstract fun favoDao(): FavoriteDao
++    companion object {
++        @Volatile
++        private var INSTANCE: FavoriteRoomDatabase? = null
++        @JvmStatic
++        fun getDatabase(context: Context): FavoriteRoomDatabase {
++            if (INSTANCE == null) {
++                synchronized(FavoriteRoomDatabase::class.java) {
++                    INSTANCE = Room.databaseBuilder(context.applicationContext,
++                        FavoriteRoomDatabase::class.java, "note_database")
++                        .build()
++                }
++            }
++            return INSTANCE as FavoriteRoomDatabase
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/data/response/GithubResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/response/GithubResponse.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/GithubResponse.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/data/response/GithubResponse.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/data/remote/response/GithubResponse.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/data/response/GithubResponse.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/response/GithubResponse.kt	
+@@ -1,4 +1,4 @@
+-package com.example.aplikasigithubuser.data.response
++package com.example.aplikasigithubuser.data.remote.response
+ 
+ import com.google.gson.annotations.SerializedName
+ 
+Index: app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiConfig.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiConfig.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiConfig.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiConfig.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiConfig.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiConfig.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiConfig.kt	
+@@ -18,7 +18,7 @@
+             val authInterceptor = Interceptor { chain ->
+                 val originalRequest = chain.request()
+                 val newRequest: Request = originalRequest.newBuilder()
+-                    .header("Authorization", "Bearer $TOKEN") // Add your token here
++//                    .header("Authorization", "$TOKEN") // Add your token here
+                     .build()
+                 chain.proceed(newRequest)
+             }
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteAddViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteAddViewModel.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteAddViewModel.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/FavoriteAddViewModel.kt	
+@@ -0,0 +1,18 @@
++package com.example.aplikasigithubuser.ui.viewmodel
++
++import android.app.Application
++import androidx.lifecycle.ViewModel
++import com.example.aplikasigithubuser.data.local.entity.Favorite
++import com.example.aplikasigithubuser.data.repository.FavoriteRepository
++
++class FavoriteAddViewModel(application: Application):ViewModel() {
++    private  val mFavoriteRepository : FavoriteRepository = FavoriteRepository(application)
++
++    fun insert(favorite: Favorite) {
++        mFavoriteRepository.insert(favorite)
++    }
++
++    fun delete(favorite: Favorite) {
++        mFavoriteRepository.delete(favorite)
++    }
++}
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	
++++ b/.idea/vcs.xml	
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/render.experimental.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/render.experimental.xml b/.idea/render.experimental.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/render.experimental.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RenderSettings">
++    <option name="showDecorations" value="true" />
++  </component>
++</project>
+\ No newline at end of file

@@ -1,0 +1,912 @@
+Index: app/src/main/res/layout/fragment_detail.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_gravity=\"center\"\r\n    tools:context=\".ui.fragment.DetailFragment\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_image_detail\"\r\n        android:layout_width=\"100dp\"\r\n        android:layout_height=\"100dp\"\r\n        android:layout_marginTop=\"80dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.498\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/tv_name\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"10dp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/iv_image_detail\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/iv_image_detail\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/iv_image_detail\" />\r\n\r\n<!--    <TextView-->\r\n<!--        android:id=\"@+id/textView\"-->\r\n<!--        android:layout_width=\"wrap_content\"-->\r\n<!--        android:layout_height=\"wrap_content\"-->\r\n<!--        android:layout_marginStart=\"100dp\"-->\r\n<!--        android:layout_marginTop=\"20dp\"-->\r\n<!--        android:text=\"TextView\"-->\r\n<!--        app:layout_constraintStart_toStartOf=\"parent\"-->\r\n<!--        app:layout_constraintTop_toBottomOf=\"@+id/tv_name\" />-->\r\n\r\n<!--    <TextView-->\r\n<!--        android:id=\"@+id/textView3\"-->\r\n<!--        android:layout_width=\"wrap_content\"-->\r\n<!--        android:layout_height=\"wrap_content\"-->\r\n<!--        android:layout_marginTop=\"20dp\"-->\r\n<!--        android:layout_marginEnd=\"100dp\"-->\r\n<!--        android:text=\"TextView\"-->\r\n<!--        app:layout_constraintEnd_toEndOf=\"parent\"-->\r\n<!--        app:layout_constraintTop_toBottomOf=\"@+id/tv_name\" />-->\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:orientation=\"vertical\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/tv_name\">\r\n\r\n        <com.google.android.material.tabs.TabLayout\r\n            android:id=\"@+id/tabs\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"?attr/colorOnPrimary\"\r\n            app:tabTextColor=\"@android:color/black\" />\r\n\r\n        <androidx.viewpager2.widget.ViewPager2\r\n            android:id=\"@+id/view_pager\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\" />\r\n    </LinearLayout>\r\n    <ProgressBar\r\n        android:id=\"@+id/progressBarDetail\"\r\n        style=\"?android:attr/progressBarStyle\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_detail.xml b/app/src/main/res/layout/fragment_detail.xml
+--- a/app/src/main/res/layout/fragment_detail.xml	
++++ b/app/src/main/res/layout/fragment_detail.xml	
+@@ -7,54 +7,49 @@
+     android:layout_gravity="center"
+     tools:context=".ui.fragment.DetailFragment">
+ 
+-    <ImageView
++
++    <ImageButton
++        android:id="@+id/imageButton"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="20dp"
++        android:layout_marginTop="20dp"
++        android:background="@android:color/transparent"
++        android:src="@drawable/baseline_arrow_back_ios_24"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/iv_image_detail"
++        app:shapeAppearanceOverlay="@style/roundedImageView"
++
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+-        android:layout_marginTop="80dp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.498"
++        android:layout_marginStart="20dp"
++        android:layout_marginTop="20dp"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+ 
+     <TextView
+         android:id="@+id/tv_name"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
++        android:layout_marginStart="10dp"
+         android:layout_marginTop="10dp"
+-        app:layout_constraintEnd_toEndOf="@+id/iv_image_detail"
+-        app:layout_constraintStart_toStartOf="@+id/iv_image_detail"
+-        app:layout_constraintTop_toBottomOf="@+id/iv_image_detail" />
+-
+-<!--    <TextView-->
+-<!--        android:id="@+id/textView"-->
+-<!--        android:layout_width="wrap_content"-->
+-<!--        android:layout_height="wrap_content"-->
+-<!--        android:layout_marginStart="100dp"-->
+-<!--        android:layout_marginTop="20dp"-->
+-<!--        android:text="TextView"-->
+-<!--        app:layout_constraintStart_toStartOf="parent"-->
+-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_name" />-->
+-
+-<!--    <TextView-->
+-<!--        android:id="@+id/textView3"-->
+-<!--        android:layout_width="wrap_content"-->
+-<!--        android:layout_height="wrap_content"-->
+-<!--        android:layout_marginTop="20dp"-->
+-<!--        android:layout_marginEnd="100dp"-->
+-<!--        android:text="TextView"-->
+-<!--        app:layout_constraintEnd_toEndOf="parent"-->
+-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_name" />-->
++        android:layout_marginEnd="20dp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toEndOf="@+id/iv_image_detail"
++        app:layout_constraintTop_toTopOf="@+id/iv_image_detail" />
+ 
+     <LinearLayout
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+-        android:layout_marginTop="20dp"
++        android:layout_marginTop="10dp"
+         android:orientation="vertical"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/tv_name">
++        app:layout_constraintTop_toBottomOf="@+id/iv_image_detail">
+ 
+         <com.google.android.material.tabs.TabLayout
+             android:id="@+id/tabs"
+@@ -68,6 +63,7 @@
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" />
+     </LinearLayout>
++
+     <ProgressBar
+         android:id="@+id/progressBarDetail"
+         style="?android:attr/progressBarStyle"
+@@ -77,4 +73,54 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Detail User"
++        android:textSize="20sp"
++        android:textStyle="bold"
++        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/imageButton" />
++
++    <TextView
++        android:id="@+id/tv_email"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="3dp"
++        app:layout_constraintBottom_toTopOf="@+id/tv_repositori"
++        app:layout_constraintEnd_toEndOf="@+id/tv_name_user"
++        app:layout_constraintStart_toStartOf="@+id/tv_name_user"
++        app:layout_constraintTop_toBottomOf="@+id/tv_name_user" />
++
++    <TextView
++        android:id="@+id/tv_repositori"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="10dp"
++        app:layout_constraintBottom_toBottomOf="@+id/iv_image_detail"
++        app:layout_constraintEnd_toEndOf="@+id/tv_email"
++        app:layout_constraintStart_toStartOf="@+id/tv_email" />
++
++    <TextView
++        android:id="@+id/tv_name_user"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="1dp"
++        app:layout_constraintEnd_toEndOf="@+id/tv_name"
++        app:layout_constraintStart_toStartOf="@+id/tv_name"
++        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
++
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab_favorite"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_margin="16dp"
++        android:src="@drawable/ic_favorite"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowersAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aplikasigithubuser.ui.adapter\r\n\r\nimport android.util.Log\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.DiffUtil\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport com.example.aplikasigithubuser.data.response.ItemFollowers\r\n\r\nimport com.example.aplikasigithubuser.databinding.ItemUserFollowersBinding\r\n\r\nclass FollowersAdapter(private val onItemClickListener: OnItemClickListener) :\r\n    androidx.recyclerview.widget.ListAdapter<ItemFollowers, FollowersAdapter.MyViewHolder>(DIFF_CALLBACK) {\r\n\r\n    // Interface untuk menangani klik item\r\n    interface OnItemClickListener {\r\n        fun onItemClick(item: ItemFollowers)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {\r\n        val binding =\r\n            ItemUserFollowersBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return MyViewHolder(binding, onItemClickListener)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {\r\n        val review = getItem(position)\r\n        holder.bind(review)\r\n    }\r\n\r\n    class MyViewHolder(\r\n        private val binding: ItemUserFollowersBinding,\r\n        private val onItemClickListener: OnItemClickListener\r\n    ) : RecyclerView.ViewHolder(binding.root) {\r\n\r\n        fun bind(review: ItemFollowers) {\r\n            binding.tvFullNameFollowers.text = \"${review.login}\"\r\n            Glide.with(binding.root.context)\r\n                .load(review.avatarUrl)\r\n                .into(binding.ivImageFollowers)\r\n\r\n\r\n            Log.i(TAG, \"${review.login}\")\r\n\r\n            // Tambahkan kode untuk menangani klik item di sini\r\n            itemView.setOnClickListener {\r\n                onItemClickListener.onItemClick(review)\r\n            }\r\n        }\r\n    }\r\n\r\n    companion object {\r\n        const val TAG = \"FollowersAdapter\"\r\n        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemFollowers>() {\r\n            override fun areItemsTheSame(oldItem: ItemFollowers, newItem: ItemFollowers): Boolean {\r\n                return oldItem == newItem\r\n            }\r\n\r\n            override fun areContentsTheSame(oldItem: ItemFollowers, newItem: ItemFollowers): Boolean {\r\n                return oldItem == newItem\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowersAdapter.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowersAdapter.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowersAdapter.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/FollowersAdapter.kt	
+@@ -6,9 +6,9 @@
+ import androidx.recyclerview.widget.DiffUtil
+ import androidx.recyclerview.widget.RecyclerView
+ import com.bumptech.glide.Glide
+-import com.example.aplikasigithubuser.data.response.ItemFollowers
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
++import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
+ 
+-import com.example.aplikasigithubuser.databinding.ItemUserFollowersBinding
+ 
+ class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
+     androidx.recyclerview.widget.ListAdapter<ItemFollowers, FollowersAdapter.MyViewHolder>(DIFF_CALLBACK) {
+@@ -20,7 +20,7 @@
+ 
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+         val binding =
+-            ItemUserFollowersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
++            ItemUserCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+         return MyViewHolder(binding, onItemClickListener)
+     }
+ 
+@@ -30,15 +30,17 @@
+     }
+ 
+     class MyViewHolder(
+-        private val binding: ItemUserFollowersBinding,
++        private val binding: ItemUserCardBinding,
+         private val onItemClickListener: OnItemClickListener
+     ) : RecyclerView.ViewHolder(binding.root) {
+ 
+         fun bind(review: ItemFollowers) {
+-            binding.tvFullNameFollowers.text = "${review.login}"
++            binding.tvFullName.text = "${review.login}"
++            binding.tvUrl.text = review.htmlUrl
++
+             Glide.with(binding.root.context)
+                 .load(review.avatarUrl)
+-                .into(binding.ivImageFollowers)
++                .into(binding.ivImage)
+ 
+ 
+             Log.i(TAG, "${review.login}")
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/fragment/DetailFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aplikasigithubuser.ui.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ImageView\r\nimport android.widget.ProgressBar\r\nimport android.widget.TextView\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.viewpager2.widget.ViewPager2\r\nimport com.bumptech.glide.Glide\r\nimport com.example.aplikasigithubuser.R\r\nimport com.example.aplikasigithubuser.data.response.DetailResponse\r\nimport com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter\r\nimport com.google.android.material.tabs.TabLayout\r\nimport com.google.android.material.tabs.TabLayoutMediator\r\nimport retrofit2.Call\r\nimport retrofit2.Callback\r\nimport retrofit2.Response\r\n\r\nclass DetailFragment : Fragment() {\r\n    private lateinit var user: DetailResponse\r\n    private var TAB_TITLES: Array<String> = emptyArray() // Initialize with empty array\r\n\r\n    companion object {\r\n        const val ARG_USERNAME = \"username\"\r\n\r\n        fun newInstance(username: String): DetailFragment {\r\n            val args = Bundle()\r\n            args.putString(ARG_USERNAME, username)\r\n            val fragment = DetailFragment()\r\n            fragment.arguments = args\r\n            return fragment\r\n        }\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        val username = arguments?.getString(ARG_USERNAME)\r\n\r\n        val rootView = inflater.inflate(R.layout.fragment_detail, container, false)\r\n        val progressBarDetail = rootView.findViewById<ProgressBar>(R.id.progressBarDetail)\r\n        progressBarDetail.visibility = View.VISIBLE\r\n\r\n        if (username != null) {\r\n            val service = ApiConfig.getApiService()\r\n            val call = service.getUser(username)\r\n\r\n            call.enqueue(object : Callback<DetailResponse> {\r\n                override fun onResponse(\r\n                    call: Call<DetailResponse>,\r\n                    response: Response<DetailResponse>\r\n                ) {\r\n                    progressBarDetail.visibility = View.GONE\r\n\r\n                    if (response.isSuccessful) {\r\n                        user = response.body() ?: return\r\n\r\n                        // Update the TAB_TITLES array\r\n                        TAB_TITLES = arrayOf(\r\n                            \"${user.followers} ${getString(R.string.tab_text_1)}\",\r\n                            \"${user.following} ${getString(R.string.tab_text_2)}\",\r\n                            // Add more strings as needed\r\n                        )\r\n\r\n                        // Lakukan sesuatu dengan data pengguna yang diperoleh\r\n                        val tvName = rootView.findViewById<TextView>(R.id.tv_name)\r\n                        val ivImageDetail = rootView.findViewById<ImageView>(R.id.iv_image_detail)\r\n                        Glide.with(this@DetailFragment)\r\n                            .load(user.avatarUrl)\r\n                            .into(ivImageDetail)\r\n                        tvName.text = user.login ?: \"\"\r\n\r\n\r\n                        // Now, set up ViewPager and TabLayout here\r\n                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES)\r\n                        val viewPager: ViewPager2 = rootView.findViewById(R.id.view_pager)\r\n                        viewPager.adapter = sectionsPagerAdapter\r\n                        val tabs: TabLayout = rootView.findViewById(R.id.tabs)\r\n                        TabLayoutMediator(tabs, viewPager) { tab, position ->\r\n                            tab.text = TAB_TITLES[position]\r\n                        }.attach()\r\n                        (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f\r\n\r\n                    } else {\r\n                        // Handle unsuccessful response\r\n                    }\r\n                }\r\n\r\n                override fun onFailure(call: Call<DetailResponse>, t: Throwable) {\r\n                    progressBarDetail.visibility = View.GONE\r\n                    // Handle network failure\r\n                }\r\n            })\r\n        }\r\n\r\n        return rootView\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/DetailFragment.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/DetailFragment.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/DetailFragment.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/DetailFragment.kt	
+@@ -1,10 +1,12 @@
+ package com.example.aplikasigithubuser.ui.fragment
+ 
+ import android.os.Bundle
++import android.text.Html
+ import androidx.fragment.app.Fragment
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import android.widget.ImageButton
+ import android.widget.ImageView
+ import android.widget.ProgressBar
+ import android.widget.TextView
+@@ -12,7 +14,7 @@
+ import androidx.viewpager2.widget.ViewPager2
+ import com.bumptech.glide.Glide
+ import com.example.aplikasigithubuser.R
+-import com.example.aplikasigithubuser.data.response.DetailResponse
++import com.example.aplikasigithubuser.data.remote.response.DetailResponse
+ import com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
+ import com.google.android.material.tabs.TabLayout
+ import com.google.android.material.tabs.TabLayoutMediator
+@@ -24,6 +26,7 @@
+     private lateinit var user: DetailResponse
+     private var TAB_TITLES: Array<String> = emptyArray() // Initialize with empty array
+ 
++
+     companion object {
+         const val ARG_USERNAME = "username"
+ 
+@@ -43,10 +46,12 @@
+         val username = arguments?.getString(ARG_USERNAME)
+ 
+         val rootView = inflater.inflate(R.layout.fragment_detail, container, false)
++
+         val progressBarDetail = rootView.findViewById<ProgressBar>(R.id.progressBarDetail)
+         progressBarDetail.visibility = View.VISIBLE
+ 
+         if (username != null) {
++
+             val service = ApiConfig.getApiService()
+             val call = service.getUser(username)
+ 
+@@ -56,28 +61,42 @@
+                     response: Response<DetailResponse>
+                 ) {
+                     progressBarDetail.visibility = View.GONE
++                    val backButton = rootView.findViewById<ImageButton>(R.id.imageButton)
++                    backButton.setOnClickListener {
++                        requireActivity().supportFragmentManager.popBackStack()
++                    }
+ 
+                     if (response.isSuccessful) {
+                         user = response.body() ?: return
+ 
+-                        // Update the TAB_TITLES array
+                         TAB_TITLES = arrayOf(
+                             "${user.followers} ${getString(R.string.tab_text_1)}",
+                             "${user.following} ${getString(R.string.tab_text_2)}",
+-                            // Add more strings as needed
+                         )
+ 
+                         // Lakukan sesuatu dengan data pengguna yang diperoleh
+                         val tvName = rootView.findViewById<TextView>(R.id.tv_name)
++                        val tvUserName = rootView.findViewById<TextView>(R.id.tv_name_user)
+                         val ivImageDetail = rootView.findViewById<ImageView>(R.id.iv_image_detail)
++
++                        val tvEmail= rootView.findViewById<TextView>(R.id.tv_email)
++                        val tvRepositori= rootView.findViewById<TextView>(R.id.tv_repositori)
++
+                         Glide.with(this@DetailFragment)
+                             .load(user.avatarUrl)
+                             .into(ivImageDetail)
+-                        tvName.text = user.login ?: ""
++                        tvName.text = Html.fromHtml("<b>Name:</b> ${user.name}")
++                        tvUserName.text = Html.fromHtml("<b>UserName:</b> ${user.login}")
++
+ 
++                        tvEmail.text = Html.fromHtml("<b>Email:</b> ${user.email ?: "-"}")
+ 
+-                        // Now, set up ViewPager and TabLayout here
+-                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES)
++
++                        tvRepositori.text = Html.fromHtml("<b>Repositori:</b> ${user.publicRepos}")
++
++
++
++                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES,username)
+                         val viewPager: ViewPager2 = rootView.findViewById(R.id.view_pager)
+                         viewPager.adapter = sectionsPagerAdapter
+                         val tabs: TabLayout = rootView.findViewById(R.id.tabs)
+@@ -87,13 +106,11 @@
+                         (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f
+ 
+                     } else {
+-                        // Handle unsuccessful response
+-                    }
++                   }
+                 }
+ 
+                 override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
+                     progressBarDetail.visibility = View.GONE
+-                    // Handle network failure
+                 }
+             })
+         }
+Index: app/src/main/res/layout/item_user_card.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <com.google.android.material.imageview.ShapeableImageView\r\n            android:id=\"@+id/iv_image\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_marginStart=\"10dp\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginEnd=\"10dp\"\r\n            android:layout_marginBottom=\"10dp\"\r\n            android:scaleType=\"centerCrop\"\r\n            app:shapeAppearanceOverlay=\"@style/roundedImageView\"\r\n\r\n            app:layout_constraintBottom_toTopOf=\"@+id/guideline\"\r\n            app:layout_constraintEnd_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            tools:srcCompat=\"@tools:sample/avatars\" />\r\n\r\n        <androidx.constraintlayout.widget.Guideline\r\n            android:id=\"@+id/guideline\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\"\r\n            app:layout_constraintGuide_begin=\"101dp\" />\r\n\r\n        <androidx.constraintlayout.widget.Guideline\r\n            android:id=\"@+id/guideline2\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            app:layout_constraintGuide_percent=\"0.24817519\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/tv_full_name\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginEnd=\"10dp\"\r\n            android:text=\"Nama\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"1.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        <!--        <TextView-->\r\n<!--            android:id=\"@+id/tv_user_name\"-->\r\n<!--            android:layout_width=\"0dp\"-->\r\n<!--            android:layout_height=\"wrap_content\"-->\r\n<!--            android:text=\"UserName\"-->\r\n<!--            app:layout_constraintBottom_toBottomOf=\"@+id/imageView3\"-->\r\n<!--            app:layout_constraintEnd_toEndOf=\"@+id/tv_full_name\"-->\r\n<!--            app:layout_constraintStart_toStartOf=\"@+id/tv_full_name\"-->\r\n<!--            app:layout_constraintTop_toBottomOf=\"@+id/tv_full_name\" />-->\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</androidx.cardview.widget.CardView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_user_card.xml b/app/src/main/res/layout/item_user_card.xml
+--- a/app/src/main/res/layout/item_user_card.xml	
++++ b/app/src/main/res/layout/item_user_card.xml	
+@@ -2,6 +2,9 @@
+ <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
++    android:layout_margin="4dp"
++    app:cardBackgroundColor="@color/white"
++    app:cardCornerRadius="18dp"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+ 
+@@ -44,15 +47,26 @@
+             android:id="@+id/tv_full_name"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+-            android:layout_marginEnd="10dp"
++            android:layout_marginStart="10dp"
++            android:layout_marginEnd="20dp"
+             android:text="Nama"
+             android:textSize="16sp"
+             android:textStyle="bold"
+-            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintBottom_toTopOf="@+id/tv_url"
+             app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="1.0"
+             app:layout_constraintStart_toStartOf="@+id/guideline2"
+-            app:layout_constraintTop_toTopOf="parent" />
++            app:layout_constraintTop_toTopOf="@+id/iv_image" />
++
++        <TextView
++            android:id="@+id/tv_url"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginBottom="4dp"
++            android:text="TextView"
++            app:layout_constraintBottom_toBottomOf="@+id/iv_image"
++            app:layout_constraintEnd_toEndOf="@+id/tv_full_name"
++            app:layout_constraintStart_toStartOf="@+id/tv_full_name"
++            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+ 
+         <!--        <TextView-->
+ <!--            android:id="@+id/tv_user_name"-->
+Index: app/src/main/res/layout/fragment_follower.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:background=\"@color/white\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ui.FollowerFragment\">\r\n\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_follower\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:listitem=\"@layout/item_user_followers\"/>\r\n    <ProgressBar\r\n        android:id=\"@+id/progressBar\"\r\n        style=\"?android:attr/progressBarStyle\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_follower.xml b/app/src/main/res/layout/fragment_follower.xml
+--- a/app/src/main/res/layout/fragment_follower.xml	
++++ b/app/src/main/res/layout/fragment_follower.xml	
+@@ -3,21 +3,23 @@
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+-    android:background="@color/white"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".ui.FollowerFragment">
++    tools:context=".ui.fragment.">
+ 
+ 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rv_follower"
++        android:layout_marginStart="20dp"
++        android:layout_marginTop="10dp"
++        android:layout_marginEnd="20dp"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        tools:listitem="@layout/item_user_followers"/>
++        tools:listitem="@layout/item_user_card"/>
+     <ProgressBar
+         android:id="@+id/progressBar"
+         style="?android:attr/progressBarStyle"
+@@ -27,6 +29,16 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/empty_data_text"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Data Kosong"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+ 
+ 
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/MainViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aplikasigithubuser.ui.viewmodel\r\n\r\nimport android.util.Log\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport com.example.aplikasigithubuser.data.response.FollowersResponse\r\n\r\nimport com.example.aplikasigithubuser.data.response.GithubResponse\r\nimport com.example.aplikasigithubuser.data.response.ItemFollowers\r\nimport com.example.aplikasigithubuser.data.response.Itemsitem\r\nimport retrofit2.Call\r\nimport retrofit2.Callback\r\nimport retrofit2.Response\r\n\r\nclass MainViewModel : ViewModel() {\r\n\r\n    private val _listUser = MutableLiveData<List<Itemsitem>>()\r\n    val listReview: LiveData<List<Itemsitem>> = _listUser\r\n\r\n    private val _listFolower = MutableLiveData<List<ItemFollowers>>()\r\n    val listReviewFolower: LiveData<List<ItemFollowers>> = _listFolower\r\n\r\n    private val _isLoading = MutableLiveData<Boolean>()\r\n    val isLoading: LiveData<Boolean> = _isLoading\r\n\r\n    companion object {\r\n        private const val TAG = \"MainViewModel\"\r\n    }\r\n\r\n    init {\r\n        fetchDataFromApi()\r\n\r\n    }\r\n    fun fetchDataFromApi(username: String = \"sahril\") {\r\n        _isLoading.postValue(true) // Set isLoading to true while fetching data\r\n\r\n        val apiService = ApiConfig.getApiService()\r\n        val call = apiService.searchUsers(username) // Menggunakan parameter username yang diterima\r\n\r\n        call.enqueue(object : Callback<GithubResponse> {\r\n            override fun onResponse(\r\n                \r\n                call: Call<GithubResponse>,\r\n                response: Response<GithubResponse>\r\n            ) {\r\n                if (response.isSuccessful) {\r\n                    val githubResponse = response.body()\r\n                    val itemsList = githubResponse?.items ?: emptyList()\r\n                    _listUser.postValue(itemsList as List<Itemsitem>?)\r\n                } else {\r\n                    Log.e(TAG, \"onFailure: ${response.message()}\")\r\n                }\r\n\r\n                _isLoading.postValue(false) // Set isLoading to false after fetching data\r\n            }\r\n\r\n            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {\r\n                // Handle network error here\r\n                _isLoading.postValue(false) // Set isLoading to false if there's an error\r\n            }\r\n        })\r\n    }\r\n\r\n    fun fetchDataFollowers(username: String) {\r\n        _isLoading.postValue(true) // Set isLoading to true while fetching data\r\n\r\n        val apiService = ApiConfig.getApiService()\r\n        val call = apiService.getFollowers(username)\r\n\r\n        call.enqueue(object : Callback<List<ItemFollowers>> { // Use List<ItemFollowers> as the callback type\r\n            override fun onResponse(\r\n                call: Call<List<ItemFollowers>>,\r\n                response: Response<List<ItemFollowers>>\r\n            ) {\r\n                if (response.isSuccessful) {\r\n                    val followersList = response.body() ?: emptyList()\r\n                    _listFolower.postValue(followersList)\r\n                    Log.i(TAG, \"Fetch followers successful. Count: ${followersList.size}\")\r\n                } else {\r\n                    Log.e(TAG, \"onFailure: ${response.message()}\")\r\n                }\r\n\r\n                _isLoading.postValue(false) // Set isLoading to false after fetching data\r\n            }\r\n\r\n            override fun onFailure(call: Call<List<ItemFollowers>>, t: Throwable) {\r\n                Log.e(TAG, \"Fetch followers failed. Error: ${t.message}\")\r\n\r\n                // Handle network error here\r\n                _isLoading.postValue(false) // Set isLoading to false if there's an error\r\n            }\r\n        })\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/MainViewModel.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/MainViewModel.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/MainViewModel.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/viewmodel/MainViewModel.kt	
+@@ -4,11 +4,12 @@
+ import androidx.lifecycle.LiveData
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
+-import com.example.aplikasigithubuser.data.response.FollowersResponse
++import com.example.aplikasigithubuser.data.remote.response.FollowersResponse
++import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
+ 
+-import com.example.aplikasigithubuser.data.response.GithubResponse
+-import com.example.aplikasigithubuser.data.response.ItemFollowers
+-import com.example.aplikasigithubuser.data.response.Itemsitem
++import com.example.aplikasigithubuser.data.remote.response.GithubResponse
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
++import com.example.aplikasigithubuser.data.remote.response.Itemsitem
+ import retrofit2.Call
+ import retrofit2.Callback
+ import retrofit2.Response
+@@ -21,6 +22,9 @@
+     private val _listFolower = MutableLiveData<List<ItemFollowers>>()
+     val listReviewFolower: LiveData<List<ItemFollowers>> = _listFolower
+ 
++    private val _listFollowing = MutableLiveData<List<FollowingResponseItem>>()
++    val listReviewFollowing: LiveData<List<FollowingResponseItem>> = _listFollowing
++
+     private val _isLoading = MutableLiveData<Boolean>()
+     val isLoading: LiveData<Boolean> = _isLoading
+ 
+@@ -40,7 +44,7 @@
+ 
+         call.enqueue(object : Callback<GithubResponse> {
+             override fun onResponse(
+-                
++
+                 call: Call<GithubResponse>,
+                 response: Response<GithubResponse>
+             ) {
+@@ -56,6 +60,7 @@
+             }
+ 
+             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
++                Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
+                 // Handle network error here
+                 _isLoading.postValue(false) // Set isLoading to false if there's an error
+             }
+@@ -86,6 +91,37 @@
+ 
+             override fun onFailure(call: Call<List<ItemFollowers>>, t: Throwable) {
+                 Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
++
++                // Handle network error here
++                _isLoading.postValue(false) // Set isLoading to false if there's an error
++            }
++        })
++    }
++
++    fun fetchDataFollowing(username: String) {
++        _isLoading.postValue(true) // Set isLoading to true while fetching data
++
++        val apiService = ApiConfig.getApiService()
++        val call = apiService.getFollowing(username)
++
++        call.enqueue(object : Callback<List<FollowingResponseItem>> { // Use List<ItemFollowers> as the callback type
++            override fun onResponse(
++                call: Call<List<FollowingResponseItem>>,
++                response: Response<List<FollowingResponseItem>>
++            ) {
++                if (response.isSuccessful) {
++                    val followingList = response.body() ?: emptyList()
++                    _listFollowing.postValue(followingList)
++                    Log.i(TAG, "Fetch followers successful. Count: ${followingList.size}")
++                } else {
++                    Log.e(TAG, "onFailure: ${response.message()}")
++                }
++
++                _isLoading.postValue(false) // Set isLoading to false after fetching data
++            }
++
++            override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
++                Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
+ 
+                 // Handle network error here
+                 _isLoading.postValue(false) // Set isLoading to false if there's an error
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.AplikasiGithubUser\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	
++++ b/app/src/main/AndroidManifest.xml	
+@@ -1,7 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+-    <uses-permission android:name="android.permission.INTERNET"/>
++
++    <uses-permission android:name="android.permission.INTERNET" />
+ 
+     <application
+         android:allowBackup="true"
+@@ -14,7 +15,13 @@
+         android:theme="@style/Theme.AplikasiGithubUser"
+         tools:targetApi="31">
+         <activity
+-            android:name=".MainActivity"
++            android:name=".ui.activity.FavoriteActivity"
++            android:exported="false" />
++        <activity
++            android:name=".ui.activity.SettingActivity"
++            android:exported="false" />
++        <activity
++            android:name=".ui.activity.SplashScreen"
+             android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+@@ -22,6 +29,10 @@
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
++        <activity
++            android:name=".ui.activity.MainActivity"
++            android:configChanges="orientation|screenSize"
++            android:exported="true" />
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/adapter/UserAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aplikasigithubuser.ui.adapter\r\n\r\nimport android.util.Log\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.DiffUtil\r\nimport androidx.recyclerview.widget.ListAdapter\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport com.example.aplikasigithubuser.data.response.Itemsitem\r\nimport com.example.aplikasigithubuser.databinding.ItemUserCardBinding\r\n\r\nclass UserAdapter(private val onItemClickListener: OnItemClickListener) :\r\n    ListAdapter<Itemsitem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {\r\n\r\n    // Interface untuk menangani klik item\r\n    interface OnItemClickListener {\r\n        fun onItemClick(item: Itemsitem)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {\r\n        val binding =\r\n            ItemUserCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return MyViewHolder(binding, onItemClickListener)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {\r\n        val review = getItem(position)\r\n        holder.bind(review)\r\n    }\r\n\r\n    class MyViewHolder(\r\n        private val binding: ItemUserCardBinding,\r\n        private val onItemClickListener: OnItemClickListener\r\n    ) : RecyclerView.ViewHolder(binding.root) {\r\n\r\n        fun bind(review: Itemsitem) {\r\n            binding.tvFullName.text = \"${review.login}\"\r\n            Glide.with(binding.root.context)\r\n                .load(review.avatarUrl)\r\n                .into(binding.ivImage)\r\n\r\n            Log.i(TAG, \"bind: ${review.login}\")\r\n\r\n            // Tambahkan kode untuk menangani klik item di sini\r\n            itemView.setOnClickListener {\r\n                onItemClickListener.onItemClick(review)\r\n            }\r\n        }\r\n    }\r\n\r\n    companion object {\r\n        const val TAG = \"UserAdapter\"\r\n        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Itemsitem>() {\r\n            override fun areItemsTheSame(oldItem: Itemsitem, newItem: Itemsitem): Boolean {\r\n                return oldItem == newItem\r\n            }\r\n\r\n            override fun areContentsTheSame(oldItem: Itemsitem, newItem: Itemsitem): Boolean {\r\n                return oldItem == newItem\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/UserAdapter.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/UserAdapter.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/UserAdapter.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/adapter/UserAdapter.kt	
+@@ -7,7 +7,7 @@
+ import androidx.recyclerview.widget.ListAdapter
+ import androidx.recyclerview.widget.RecyclerView
+ import com.bumptech.glide.Glide
+-import com.example.aplikasigithubuser.data.response.Itemsitem
++import com.example.aplikasigithubuser.data.remote.response.Itemsitem
+ import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
+ 
+ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
+@@ -36,6 +36,7 @@
+ 
+         fun bind(review: Itemsitem) {
+             binding.tvFullName.text = "${review.login}"
++            binding.tvUrl.text = review.htmlUrl
+             Glide.with(binding.root.context)
+                 .load(review.avatarUrl)
+                 .into(binding.ivImage)
+Index: app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiService.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiService.kt b/app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiService.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiService.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiService.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/data/retrofit/ApiService.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/data/remote/retrofit/ApiService.kt	
+@@ -1,7 +1,8 @@
+-import com.example.aplikasigithubuser.data.response.DetailResponse
+-import com.example.aplikasigithubuser.data.response.FollowersResponse
+-import com.example.aplikasigithubuser.data.response.GithubResponse
+-import com.example.aplikasigithubuser.data.response.ItemFollowers
++import com.example.aplikasigithubuser.data.remote.response.DetailResponse
++import com.example.aplikasigithubuser.data.remote.response.FollowersResponse
++import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
++import com.example.aplikasigithubuser.data.remote.response.GithubResponse
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
+ import retrofit2.Call
+ import retrofit2.http.GET
+ import retrofit2.http.Path
+@@ -18,4 +19,7 @@
+ 
+     @GET("users/{username}/followers")
+     fun getFollowers(@Path("username") username: String): Call<List<ItemFollowers>>
++
++    @GET("users/{username}/following")
++    fun getFollowing(@Path("username") username: String): Call<List<FollowingResponseItem>>
+ }
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/FollowerFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/FollowerFragment.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowerFragment.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/ui/FollowerFragment.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowerFragment.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/FollowerFragment.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/FollowerFragment.kt	
+@@ -1,3 +1,6 @@
++package com.example.aplikasigithubuser.ui.fragment
++
++import android.content.res.Configuration
+ import androidx.fragment.app.Fragment
+ import android.os.Bundle
+ import android.util.Log
+@@ -6,20 +9,23 @@
+ import android.view.ViewGroup
+ import android.view.inputmethod.EditorInfo
+ import android.widget.Toast
++import androidx.appcompat.app.AppCompatActivity
++import androidx.fragment.app.FragmentManager
+ import androidx.fragment.app.viewModels
+ import androidx.recyclerview.widget.DividerItemDecoration
++import androidx.recyclerview.widget.GridLayoutManager
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import androidx.recyclerview.widget.RecyclerView
+ import com.example.aplikasigithubuser.R
+-import com.example.aplikasigithubuser.data.response.ItemFollowers
+-import com.example.aplikasigithubuser.data.response.Itemsitem
++import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
++import com.example.aplikasigithubuser.data.remote.response.Itemsitem
+ import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
+ import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
+ import com.example.aplikasigithubuser.ui.adapter.UserAdapter
+ import com.example.aplikasigithubuser.ui.fragment.DetailFragment
+ import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+ 
+-class FollowerFragment : Fragment(), FollowersAdapter.OnItemClickListener {
++class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnItemClickListener {
+     private var _binding: FragmentFollowerBinding? = null
+     private val binding get() = _binding!!
+     private val viewModel: MainViewModel by viewModels()
+@@ -28,7 +34,7 @@
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+-        Log.i("FollowerFragment", "onCreateView called")
++        Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "onCreateView called")
+ 
+         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
+         val rootView = binding.root
+@@ -38,24 +44,25 @@
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+-        viewModel.fetchDataFollowers("CallMeSahril")
++
+ 
+-        // Tambahkan kode khusus yang ingin Anda jalankan saat onViewCreated di sini
+-        // Contoh: menampilkan pesan Toast saat fragment dibuat
+-        Toast.makeText(requireContext(), "Fragment Follower Created", Toast.LENGTH_SHORT).show()
++        viewModel.fetchDataFollowers(username)
+ 
+-//        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
+-//        val adapter = FollowersAdapter(this)
++        val orientation = resources.configuration.orientation
+ 
+-        // Mengatur LinearLayoutManager
+-        val layoutManager = LinearLayoutManager(requireContext())
++        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
++            GridLayoutManager(context, 2)
++        } else {
++            LinearLayoutManager(context)
++        }
++
+         binding.rvFollower.layoutManager = layoutManager
+         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
+         binding.rvFollower.addItemDecoration(itemDecoration)
+ 
+ 
+         viewModel.listReviewFolower.observe(viewLifecycleOwner) { consumerReviews ->
+-            Log.i("FollowerFragment", "Data changed: ${consumerReviews.size} items")
++            Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "Data changed: ${consumerReviews.size} items")
+             setReviewData(consumerReviews)
+         }
+ 
+@@ -71,6 +78,12 @@
+         adapter.submitList(consumerReviews)
+         binding.rvFollower.adapter = adapter
+ 
++        if (consumerReviews.isEmpty()) {
++            binding.emptyDataText.visibility = View.VISIBLE
++        } else {
++            binding.emptyDataText.visibility = View.GONE
++        }
++
+     }
+     private fun showLoading(isLoading: Boolean) {
+         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+@@ -84,7 +97,7 @@
+ 
+     override fun onItemClick(item: ItemFollowers) {
+         val username = item.login
+-
++        Log.i("Username", "onItemClick Follow: ${item.login} ")
+         // Membuat instance fragment detail dan mengirim data
+         val detailFragment = DetailFragment.newInstance("$username")
+ 
+@@ -93,5 +106,7 @@
+         transaction.replace(R.id.frame_container, detailFragment)
+         transaction.addToBackStack(null)
+         transaction.commit()
++
++
+     }
+ }
+Index: app/src/main/java/com/example/aplikasigithubuser/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/MainActivity.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/MainActivity.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/MainActivity.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/ui/activity/MainActivity.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/MainActivity.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/activity/MainActivity.kt	
+@@ -1,15 +1,38 @@
+-package com.example.aplikasigithubuser
++package com.example.aplikasigithubuser.ui.activity
+ 
+-import HomeFragment
++import com.example.aplikasigithubuser.ui.fragment.HomeFragment
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+ import android.util.Log
++import android.view.Menu
++import android.view.MenuItem
++import android.widget.Toast
++import androidx.appcompat.app.AppCompatDelegate
++import androidx.lifecycle.ViewModelProvider
++import com.example.aplikasigithubuser.R
++import com.example.aplikasigithubuser.ui.viewmodel.ThemeViewModel
++import com.example.aplikasigithubuser.ui.viewmodel.ViewModelFactory
++import com.example.aplikasigithubuser.utils.SettingPreferences
++import com.example.aplikasigithubuser.utils.dataStore
+ 
+ 
+ class MainActivity : AppCompatActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
++        val pref = SettingPreferences.getInstance(application.dataStore)
++        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
++            ThemeViewModel::class.java
++        )
++        mainViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
++            if (isDarkModeActive) {
++                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
++
++            } else {
++                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
++
++            }
++        }
+ 
+         val fragmentManager = supportFragmentManager
+         val homeFragment = HomeFragment()
+@@ -22,4 +45,7 @@
+                 .commit()
+         }
+     }
++
++
++
+ }
+Index: app/src/main/java/com/example/aplikasigithubuser/ui/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/aplikasigithubuser/ui/HomeFragment.kt b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/HomeFragment.kt
+rename from app/src/main/java/com/example/aplikasigithubuser/ui/HomeFragment.kt
+rename to app/src/main/java/com/example/aplikasigithubuser/ui/fragment/HomeFragment.kt
+--- a/app/src/main/java/com/example/aplikasigithubuser/ui/HomeFragment.kt	
++++ b/app/src/main/java/com/example/aplikasigithubuser/ui/fragment/HomeFragment.kt	
+@@ -1,17 +1,24 @@
+-import androidx.fragment.app.Fragment
++package com.example.aplikasigithubuser.ui.fragment
++
++import android.content.Intent
++import android.content.res.Configuration
+ import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
++import android.util.Log
++import android.view.*
+ import android.view.inputmethod.EditorInfo
+ import android.widget.Toast
++import androidx.appcompat.app.AppCompatActivity
++import androidx.appcompat.widget.Toolbar
++import androidx.fragment.app.Fragment
+ import androidx.fragment.app.viewModels
++import androidx.recyclerview.widget.GridLayoutManager
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import androidx.recyclerview.widget.RecyclerView
+ import com.example.aplikasigithubuser.R
+-import com.example.aplikasigithubuser.data.response.Itemsitem
++import com.example.aplikasigithubuser.data.remote.response.Itemsitem
+ import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
+-import com.example.aplikasigithubuser.ui.fragment.DetailFragment
++import com.example.aplikasigithubuser.ui.activity.FavoriteActivity
++import com.example.aplikasigithubuser.ui.activity.SettingActivity
+ import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+ import com.example.aplikasigithubuser.ui.adapter.UserAdapter
+ 
+@@ -29,11 +36,16 @@
+ 
+         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView)
+         val adapter = UserAdapter(this)
+-
++        val toolbar = rootView.findViewById<Toolbar>(R.id.toolbar)
++        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+         // Mengatur LinearLayoutManager
+-        val layoutManager = LinearLayoutManager(requireContext())
++        val orientation = resources.configuration.orientation
++        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
++            GridLayoutManager(context, 2)
++        } else {
++            LinearLayoutManager(context)
++        }
+         recyclerView.layoutManager = layoutManager
+-
+         recyclerView.adapter = adapter
+ 
+         with(binding) {
+@@ -59,8 +71,6 @@
+                     false
+                 }
+             }
+-
+-
+         }
+ 
+         // Observe LiveData for isLoading
+@@ -78,12 +88,10 @@
+         viewModel.listReview.observe(viewLifecycleOwner) { items ->
+             adapter.submitList(items)
+         }
+-
++        setHasOptionsMenu(true)
+         return rootView
+     }
+ 
+-
+-
+     override fun onDestroyView() {
+         super.onDestroyView()
+         _binding = null
+@@ -102,4 +110,29 @@
+         transaction?.commit()
+     }
+ 
++    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
++        inflater.inflate(R.menu.app_bar, menu)
++        super.onCreateOptionsMenu(menu, inflater)
++    }
++
++    override fun onOptionsItemSelected(item: MenuItem): Boolean {
++        return when (item.itemId) {
++            R.id.setting -> {
++                val intent = Intent(requireContext(), SettingActivity::class.java)
++                startActivity(intent)
++                true
++            }
++
++            R.id.favorite -> {
++                val intent = Intent(requireContext(), FavoriteActivity::class.java)
++                startActivity(intent)
++                true
++            }
++
++            else -> super.onOptionsItemSelected(item)
++        }
++    }
++
++
++
+ }
