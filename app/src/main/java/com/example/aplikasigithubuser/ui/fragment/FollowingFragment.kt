@@ -12,19 +12,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.FollowingResponseItem
-import com.example.aplikasigithubuser.data.response.ItemFollowers
+import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
+
 import com.example.aplikasigithubuser.databinding.FragmentFollowingBinding
-import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
 import com.example.aplikasigithubuser.ui.adapter.FollowingAdapter
-import com.example.aplikasigithubuser.ui.fragment.DetailFragment
-import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+import com.example.aplikasigithubuser.ui.viewmodel.ApiViewModel
 
 
 class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.OnItemClickListener {
     private var _binding: FragmentFollowingBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: ApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

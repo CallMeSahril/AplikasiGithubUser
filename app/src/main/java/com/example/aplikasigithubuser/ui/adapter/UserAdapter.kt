@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.aplikasigithubuser.data.response.Itemsitem
+import com.example.aplikasigithubuser.data.remote.response.Itemsitem
 import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
 
 class UserAdapter(private val onItemClickListener: OnItemClickListener) :

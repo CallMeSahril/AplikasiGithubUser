@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.aplikasigithubuser.data.response.ItemFollowers
+import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
 import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
 
 import com.example.aplikasigithubuser.databinding.ItemUserFollowersBinding

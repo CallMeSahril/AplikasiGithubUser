@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.DetailResponse
+import com.example.aplikasigithubuser.data.remote.response.DetailResponse
+
 import com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

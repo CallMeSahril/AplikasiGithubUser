@@ -1,9 +1,9 @@
 package com.example.aplikasigithubuser.data.remote.retrofit
 
 import com.example.aplikasigithubuser.data.remote.response.DetailResponse
+import com.example.aplikasigithubuser.data.remote.response.FollowingResponseItem
 import com.example.aplikasigithubuser.data.remote.response.GithubResponse
 import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
-import com.example.aplikasigithubuser.data.response.FollowingResponseItem
 
 import retrofit2.Call
 import retrofit2.http.GET

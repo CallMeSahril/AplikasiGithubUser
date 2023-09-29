@@ -1,27 +1,35 @@
 package com.example.aplikasigithubuser.ui.fragment
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.Itemsitem
+import com.example.aplikasigithubuser.data.remote.response.Itemsitem
+
 import com.example.aplikasigithubuser.databinding.FragmentHomeBinding
-import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+import com.example.aplikasigithubuser.ui.activity.FavoriteActivity
+import com.example.aplikasigithubuser.ui.activity.SettingActivity
+import com.example.aplikasigithubuser.ui.viewmodel.ApiViewModel
 import com.example.aplikasigithubuser.ui.adapter.UserAdapter
 
 class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: ApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +37,9 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val rootView = binding.root
+
+        val toolbar = binding.toolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = UserAdapter(this)
@@ -70,7 +81,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
                 }
             }
 
-
+            setHasOptionsMenu(true)
         }
 
         // Observe LiveData for isLoading
@@ -110,6 +121,30 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         transaction?.replace(R.id.frame_container, detailFragment)
         transaction?.addToBackStack(null)
         transaction?.commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.app_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.setting -> {
+                val intent = Intent(context, SettingActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
+            R.id.favorite -> {
+                val intent = Intent(context, FavoriteActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

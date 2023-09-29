@@ -7,28 +7,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.response.ItemFollowers
-import com.example.aplikasigithubuser.data.response.Itemsitem
+import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
+
 import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
 import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
-import com.example.aplikasigithubuser.ui.adapter.UserAdapter
-import com.example.aplikasigithubuser.ui.fragment.DetailFragment
-import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
+import com.example.aplikasigithubuser.ui.viewmodel.ApiViewModel
 
 class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnItemClickListener {
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: ApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
