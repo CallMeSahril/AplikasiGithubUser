@@ -31,6 +31,8 @@
         </activity>
         <activity
             android:name=".ui.activity.FavoriteActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:theme="@style/Theme.Material3.Light"
             android:exported="false" />
         <activity
             android:name=".ui.activity.SettingActivity"

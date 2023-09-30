@@ -1,5 +1,6 @@
 package com.example.aplikasigithubuser.ui.fragment
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -30,15 +31,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 
 class DetailFragment : Fragment() {
     private lateinit var user: DetailResponse
     private var TAB_TITLES: Array<String> = emptyArray() // Initialize with empty array
-
-
-
-
+    private var isFavorite = false
 
     companion object {
         const val ARG_USERNAME = "username"
@@ -51,6 +50,7 @@ class DetailFragment : Fragment() {
             return fragment
         }
     }
+
     private val noteAddUpdateViewModel by lazy {
         NoteAddUpdateViewModel(requireActivity().application)
     }
@@ -68,7 +68,6 @@ class DetailFragment : Fragment() {
 
 
         if (username != null) {
-
 
 
             val service = ApiConfig.getApiService()
@@ -98,8 +97,8 @@ class DetailFragment : Fragment() {
                         val tvUserName = rootView.findViewById<TextView>(R.id.tv_name_user)
                         val ivImageDetail = rootView.findViewById<ImageView>(R.id.iv_image_detail)
 
-                        val tvEmail= rootView.findViewById<TextView>(R.id.tv_email)
-                        val tvRepositori= rootView.findViewById<TextView>(R.id.tv_repositori)
+                        val tvEmail = rootView.findViewById<TextView>(R.id.tv_email)
+                        val tvRepositori = rootView.findViewById<TextView>(R.id.tv_repositori)
 
                         Glide.with(this@DetailFragment)
                             .load(user.avatarUrl)
@@ -113,21 +112,52 @@ class DetailFragment : Fragment() {
 
                         tvRepositori.text = Html.fromHtml("<b>Repositori:</b> ${user.publicRepos}")
                         val fabAdd = rootView.findViewById<FloatingActionButton>(R.id.fab_add)
+                        noteAddUpdateViewModel.checkUser("${user.id}")
+                            .observe(viewLifecycleOwner) { note ->
+                                isFavorite = note != null
+                                Log.i("DetailFragment", "onResponse: Note $isFavorite ")
+                                Log.i("DetailFragment", "onResponse: Note ${user.avatarUrl} ")
+
+                                if (isFavorite){
+                                    fabAdd.setImageResource(R.drawable.ic_favorite)
+
+                                }else{
+                                    fabAdd.setImageResource(R.drawable.ic_favorite_border)
+
+
+                                }
+
+                            }
+
 
                         fabAdd.setOnClickListener {
-                            val note = Note(title = user.login, description = user.name)
-                            Log.i("DetailFragment", "onCreateView: ${note.id} ${note.title}  ")
+
+                            val note =    Note(
+                                id = user.id!!,
+                                title = user.login,
+                                description = user.name,
+                                date = user.avatarUrl
+                            )
 
 
-                            noteAddUpdateViewModel.insert(note)
-
-                            showToast(getString(R.string.added))
 
 
+                            Log.i("DetailFragment", "onResponse: $isFavorite n ${user.id} ")
+
+                            if (isFavorite) {
+                                noteAddUpdateViewModel.delete(note)
+                                fabAdd.setImageResource(R.drawable.ic_favorite_border)
+                                showToast(getString(R.string.delete))
+                            } else {
+                                noteAddUpdateViewModel.insert(note)
+                                fabAdd.setImageResource(R.drawable.ic_favorite)
+                                showToast(getString(R.string.added))
+                            }
                         }
 
 
-                        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES,username)
+                        val sectionsPagerAdapter =
+                            SectionsPagerAdapter(requireActivity(), TAB_TITLES, username)
                         val viewPager: ViewPager2 = rootView.findViewById(R.id.view_pager)
                         viewPager.adapter = sectionsPagerAdapter
                         val tabs: TabLayout = rootView.findViewById(R.id.tabs)
@@ -137,7 +167,7 @@ class DetailFragment : Fragment() {
                         (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f
 
                     } else {
-                   }
+                    }
                 }
 
                 override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
@@ -149,8 +179,10 @@ class DetailFragment : Fragment() {
 
         return rootView
     }
+
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }
+

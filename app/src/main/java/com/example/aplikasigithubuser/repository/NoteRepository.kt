@@ -14,6 +14,9 @@ class NoteRepository(application: Application) {
     init {
         val db = NoteRoomDatabase.getDatabase(application)
         mNotesDao = db.noteDao()
+
+
+
     }
     fun getAllNotes(): LiveData<List<Note>> = mNotesDao.getAllNotes()
     fun insert(note: Note) {
@@ -25,4 +28,10 @@ class NoteRepository(application: Application) {
     fun update(note: Note) {
         executorService.execute { mNotesDao.update(note) }
     }
+
+    fun checkUser(username: String): LiveData<Note> {
+        return mNotesDao.getFavoriteUserByUsername(username)
+    }
+
+
 }

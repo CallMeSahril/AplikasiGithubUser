@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.data.local.database.Note
 
 import com.example.aplikasigithubuser.helper.NoteDiffCallback
 import com.example.aplikasigithubuser.databinding.ItemNoteBinding
+import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
 import com.example.aplikasigithubuser.ui.activity.NoteAddUpdateActivity
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
@@ -21,7 +23,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUserCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NoteViewHolder(binding)
     }
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
@@ -30,17 +32,14 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     override fun getItemCount(): Int {
         return listNotes.size
     }
-    inner class NoteViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(note: Note) {
+    inner class NoteViewHolder(private val binding: ItemUserCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(review: Note) {
             with(binding) {
-                tvItemTitle.text = note.title
-                tvItemDate.text = note.date
-                tvItemDescription.text = note.description
-                cvItemNote.setOnClickListener {
-                    val intent = Intent(it.context, NoteAddUpdateActivity::class.java)
-//                    intent.putExtra(NoteAddUpdateActivity.EXTRA_NOTE, note)
-                    it.context.startActivity(intent)
-                }
+                binding.tvFullName.text = "${review.title}"
+                binding.tvUrl.text = review.description
+                Glide.with(binding.root.context)
+                    .load(review.date)
+                    .into(binding.ivImage)
             }
         }
     }

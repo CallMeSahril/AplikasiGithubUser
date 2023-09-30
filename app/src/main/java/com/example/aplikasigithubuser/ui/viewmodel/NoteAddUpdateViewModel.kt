@@ -1,7 +1,10 @@
 package com.example.aplikasigithubuser.ui.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+
+import androidx.room.Query
 import com.example.aplikasigithubuser.data.local.database.Note
 import com.example.aplikasigithubuser.repository.NoteRepository
 
@@ -17,4 +20,11 @@ class NoteAddUpdateViewModel(application: Application) : ViewModel() {
     fun delete(note: Note) {
         mNoteRepository.delete(note)
     }
+
+    fun checkUser(username: String): LiveData<Note> {
+        return mNoteRepository.checkUser(username)
+    }
+
+
+
 }
