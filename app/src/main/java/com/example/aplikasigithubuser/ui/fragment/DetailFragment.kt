@@ -2,6 +2,7 @@ package com.example.aplikasigithubuser.ui.fragment
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,22 +11,33 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.R
+import com.example.aplikasigithubuser.data.local.database.Note
 import com.example.aplikasigithubuser.data.remote.response.DetailResponse
+import com.example.aplikasigithubuser.ui.viewmodel.NoteAddUpdateViewModel
+
 
 import com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class DetailFragment : Fragment() {
     private lateinit var user: DetailResponse
     private var TAB_TITLES: Array<String> = emptyArray() // Initialize with empty array
+
+
+
 
 
     companion object {
@@ -39,6 +51,9 @@ class DetailFragment : Fragment() {
             return fragment
         }
     }
+    private val noteAddUpdateViewModel by lazy {
+        NoteAddUpdateViewModel(requireActivity().application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,11 +62,14 @@ class DetailFragment : Fragment() {
         val username = arguments?.getString(ARG_USERNAME)
 
         val rootView = inflater.inflate(R.layout.fragment_detail, container, false)
-
         val progressBarDetail = rootView.findViewById<ProgressBar>(R.id.progressBarDetail)
         progressBarDetail.visibility = View.VISIBLE
 
+
+
         if (username != null) {
+
+
 
             val service = ApiConfig.getApiService()
             val call = service.getUser(username)
@@ -94,7 +112,19 @@ class DetailFragment : Fragment() {
 
 
                         tvRepositori.text = Html.fromHtml("<b>Repositori:</b> ${user.publicRepos}")
+                        val fabAdd = rootView.findViewById<FloatingActionButton>(R.id.fab_add)
 
+                        fabAdd.setOnClickListener {
+                            val note = Note(title = user.login, description = user.name)
+                            Log.i("DetailFragment", "onCreateView: ${note.id} ${note.title}  ")
+
+
+                            noteAddUpdateViewModel.insert(note)
+
+                            showToast(getString(R.string.added))
+
+
+                        }
 
 
                         val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), TAB_TITLES,username)
@@ -116,6 +146,11 @@ class DetailFragment : Fragment() {
             })
         }
 
+
         return rootView
     }
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
 }

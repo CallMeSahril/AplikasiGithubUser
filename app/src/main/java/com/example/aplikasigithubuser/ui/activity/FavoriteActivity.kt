@@ -32,10 +32,7 @@ class FavoriteActivity : AppCompatActivity() {
         binding?.rvNotes?.layoutManager = LinearLayoutManager(this)
         binding?.rvNotes?.setHasFixedSize(true)
         binding?.rvNotes?.adapter = adapter
-        binding?.fabAdd?.setOnClickListener {
-            val intent = Intent(this@FavoriteActivity, NoteAddUpdateActivity::class.java)
-            startActivity(intent)
-        }
+
     }
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
         val factory = FavoriteModelFactory.getInstance(activity.application)

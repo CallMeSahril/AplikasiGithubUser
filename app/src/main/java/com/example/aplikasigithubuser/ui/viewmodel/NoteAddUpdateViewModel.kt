@@ -7,7 +7,7 @@ import com.example.aplikasigithubuser.repository.NoteRepository
 
 class NoteAddUpdateViewModel(application: Application) : ViewModel() {
 
-    private val mNoteRepository: NoteRepository = NoteRepository(application)
+     var mNoteRepository: NoteRepository = NoteRepository(application)
     fun insert(note: Note) {
         mNoteRepository.insert(note)
     }
