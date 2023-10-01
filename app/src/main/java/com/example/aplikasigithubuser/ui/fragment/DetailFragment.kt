@@ -1,6 +1,5 @@
 package com.example.aplikasigithubuser.ui.fragment
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -14,14 +13,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.R
-import com.example.aplikasigithubuser.data.local.database.Note
+import com.example.aplikasigithubuser.data.local.database.GithubUser
 import com.example.aplikasigithubuser.data.remote.response.DetailResponse
-import com.example.aplikasigithubuser.ui.viewmodel.NoteAddUpdateViewModel
+import com.example.aplikasigithubuser.ui.viewmodel.GithubUserAddDeleteViewModel
 
 
 import com.example.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
@@ -31,7 +28,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 
 class DetailFragment : Fragment() {
@@ -51,8 +47,8 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private val noteAddUpdateViewModel by lazy {
-        NoteAddUpdateViewModel(requireActivity().application)
+    private val githubUserAddDeleteViewModel by lazy {
+        GithubUserAddDeleteViewModel(requireActivity().application)
     }
 
     override fun onCreateView(
@@ -112,7 +108,7 @@ class DetailFragment : Fragment() {
 
                         tvRepositori.text = Html.fromHtml("<b>Repositori:</b> ${user.publicRepos}")
                         val fabAdd = rootView.findViewById<FloatingActionButton>(R.id.fab_add)
-                        noteAddUpdateViewModel.checkUser("${user.id}")
+                        githubUserAddDeleteViewModel.checkUser("${user.id}")
                             .observe(viewLifecycleOwner) { note ->
                                 isFavorite = note != null
                                 Log.i("DetailFragment", "onResponse: Note $isFavorite ")
@@ -132,7 +128,7 @@ class DetailFragment : Fragment() {
 
                         fabAdd.setOnClickListener {
 
-                            val note =    Note(
+                            val githubUser =    GithubUser(
                                 id = user.id!!,
                                 title = user.login,
                                 description = user.name,
@@ -145,11 +141,11 @@ class DetailFragment : Fragment() {
                             Log.i("DetailFragment", "onResponse: $isFavorite n ${user.id} ")
 
                             if (isFavorite) {
-                                noteAddUpdateViewModel.delete(note)
+                                githubUserAddDeleteViewModel.delete(githubUser)
                                 fabAdd.setImageResource(R.drawable.ic_favorite_border)
                                 showToast(getString(R.string.delete))
                             } else {
-                                noteAddUpdateViewModel.insert(note)
+                                githubUserAddDeleteViewModel.insert(githubUser)
                                 fabAdd.setImageResource(R.drawable.ic_favorite)
                                 showToast(getString(R.string.added))
                             }

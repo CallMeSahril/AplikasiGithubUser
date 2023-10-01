@@ -1,13 +1,12 @@
 package com.example.aplikasigithubuser.ui.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplikasigithubuser.R
 import com.example.aplikasigithubuser.databinding.ActivityFavoriteBinding
-import com.example.aplikasigithubuser.ui.adapter.NoteAdapter
+import com.example.aplikasigithubuser.ui.adapter.GithubUserAdapter
 import com.example.aplikasigithubuser.ui.viewmodel.FavoriteModelFactory
 import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
 
@@ -15,7 +14,7 @@ import com.example.aplikasigithubuser.ui.viewmodel.MainViewModel
 class FavoriteActivity : AppCompatActivity() {
     private var _activityMainBinding: ActivityFavoriteBinding? = null
     private val binding get() = _activityMainBinding
-    private lateinit var adapter: NoteAdapter
+    private lateinit var adapter: GithubUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class FavoriteActivity : AppCompatActivity() {
                 adapter.setListNotes(noteList)
             }
         }
-        adapter = NoteAdapter()
+        adapter = GithubUserAdapter()
         binding?.rvNotes?.layoutManager = LinearLayoutManager(this)
         binding?.rvNotes?.setHasFixedSize(true)
         binding?.rvNotes?.adapter = adapter
