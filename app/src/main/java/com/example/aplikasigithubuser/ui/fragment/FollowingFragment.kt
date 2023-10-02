@@ -40,10 +40,6 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
         viewModel.fetchDataFollowing(username)
 
 
-
-//        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_follower)
-//        val adapter = FollowersAdapter(this)
-
         // Mengatur LinearLayoutManager
         val orientation = resources.configuration.orientation
 

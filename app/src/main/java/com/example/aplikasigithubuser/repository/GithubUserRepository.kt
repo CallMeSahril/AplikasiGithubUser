@@ -25,9 +25,6 @@ class GithubUserRepository(application: Application) {
     fun delete(githubUser: GithubUser) {
         executorService.execute { mNotesDao.delete(githubUser) }
     }
-    fun update(githubUser: GithubUser) {
-        executorService.execute { mNotesDao.update(githubUser) }
-    }
 
     fun checkUser(username: String): LiveData<GithubUser> {
         return mNotesDao.getFavoriteUserByUsername(username)

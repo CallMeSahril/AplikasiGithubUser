@@ -12,11 +12,11 @@ data class GithubUser(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,
-    @ColumnInfo(name = "title")
-    var title: String? = null,
-    @ColumnInfo(name = "description")
-    var description: String? = null,
-    @ColumnInfo(name = "date")
-    var date: String? = null,
+    @ColumnInfo(name = "name_github_user")
+    var nameGithubUser: String? = null,
+    @ColumnInfo(name = "url_github_user")
+    var urlGithubUser: String? = null,
+    @ColumnInfo(name = "image_github_user")
+    var imageGithubUser: String? = null,
 
-) : Parcelable
+    ) : Parcelable

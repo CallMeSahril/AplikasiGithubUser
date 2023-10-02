@@ -1,5 +1,7 @@
 package com.example.aplikasigithubuser.ui.fragment
 
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.R
 import com.example.aplikasigithubuser.data.local.database.GithubUser
 import com.example.aplikasigithubuser.data.remote.response.DetailResponse
+import com.example.aplikasigithubuser.ui.activity.MainActivity
 import com.example.aplikasigithubuser.ui.viewmodel.GithubUserAddDeleteViewModel
 
 
@@ -75,9 +78,19 @@ class DetailFragment : Fragment() {
                     response: Response<DetailResponse>
                 ) {
                     progressBarDetail.visibility = View.GONE
+                    val isDarkTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
                     val backButton = rootView.findViewById<ImageButton>(R.id.imageButton)
+                    backButton.setImageResource(
+                        if (isDarkTheme) {
+                            R.drawable.baseline_arrow_back_ios_24
+                        } else {
+                            R.drawable.baseline_arrow_back_ios_24_black
+                        }
+                    )
                     backButton.setOnClickListener {
-                        requireActivity().supportFragmentManager.popBackStack()
+                                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+
                     }
 
                     if (response.isSuccessful) {
@@ -130,9 +143,9 @@ class DetailFragment : Fragment() {
 
                             val githubUser =    GithubUser(
                                 id = user.id!!,
-                                title = user.login,
-                                description = user.name,
-                                date = user.avatarUrl
+                                nameGithubUser = user.login,
+                                urlGithubUser = user.htmlUrl,
+                                imageGithubUser = user.avatarUrl
                             )
 
 

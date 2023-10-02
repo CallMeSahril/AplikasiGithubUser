@@ -13,9 +13,7 @@ class GithubUserAddDeleteViewModel(application: Application) : ViewModel() {
     fun insert(githubUser: GithubUser) {
         mGithubUserRepository.insert(githubUser)
     }
-    fun update(githubUser: GithubUser) {
-        mGithubUserRepository.update(githubUser)
-    }
+
     fun delete(githubUser: GithubUser) {
         mGithubUserRepository.delete(githubUser)
     }

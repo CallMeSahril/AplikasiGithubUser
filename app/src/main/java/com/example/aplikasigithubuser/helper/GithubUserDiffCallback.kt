@@ -12,6 +12,6 @@ class GithubUserDiffCallback(private val oldGithubUserList: List<GithubUser>, pr
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldNote = oldGithubUserList[oldItemPosition]
         val newNote = newGithubUserList[newItemPosition]
-        return oldNote.title == newNote.title && oldNote.description == newNote.description
+        return oldNote.nameGithubUser == newNote.nameGithubUser && oldNote.urlGithubUser == newNote.urlGithubUser
     }
 }
