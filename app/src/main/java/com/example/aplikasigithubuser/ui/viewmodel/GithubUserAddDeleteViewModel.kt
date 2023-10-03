@@ -9,7 +9,7 @@ import com.example.aplikasigithubuser.repository.GithubUserRepository
 
 class GithubUserAddDeleteViewModel(application: Application) : ViewModel() {
 
-     var mGithubUserRepository: GithubUserRepository = GithubUserRepository(application)
+    var mGithubUserRepository: GithubUserRepository = GithubUserRepository(application)
     fun insert(githubUser: GithubUser) {
         mGithubUserRepository.insert(githubUser)
     }
@@ -21,7 +21,6 @@ class GithubUserAddDeleteViewModel(application: Application) : ViewModel() {
     fun checkUser(username: String): LiveData<GithubUser> {
         return mGithubUserRepository.checkUser(username)
     }
-
 
 
 }

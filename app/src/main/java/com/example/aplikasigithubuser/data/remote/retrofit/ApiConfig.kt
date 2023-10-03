@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiConfig {
     companion object {
         private const val BASE_URL = "https://api.github.com/"
-        private const val TOKEN = "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" // Replace with your GitHub token
+
 
         fun getApiService(): ApiService {
             val httpClient = OkHttpClient.Builder()

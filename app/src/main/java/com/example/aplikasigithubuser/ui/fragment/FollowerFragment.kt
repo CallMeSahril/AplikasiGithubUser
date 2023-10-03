@@ -18,7 +18,7 @@ import com.example.aplikasigithubuser.databinding.FragmentFollowerBinding
 import com.example.aplikasigithubuser.ui.adapter.FollowersAdapter
 import com.example.aplikasigithubuser.ui.viewmodel.ApiViewModel
 
-class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnItemClickListener {
+class FollowerFragment(val username: String) : Fragment(), FollowersAdapter.OnItemClickListener {
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ApiViewModel by viewModels()
@@ -55,7 +55,10 @@ class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnI
 
 
         viewModel.listReviewFolower.observe(viewLifecycleOwner) { consumerReviews ->
-            Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "Data changed: ${consumerReviews.size} items")
+            Log.i(
+                "com.example.aplikasigithubuser.ui.fragment.FollowerFragment",
+                "Data changed: ${consumerReviews.size} items"
+            )
             setReviewData(consumerReviews)
         }
 
@@ -64,8 +67,8 @@ class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnI
         }
 
 
-
     }
+
     private fun setReviewData(consumerReviews: List<ItemFollowers>) {
         val adapter = FollowersAdapter(this)
         adapter.submitList(consumerReviews)
@@ -78,6 +81,7 @@ class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnI
         }
 
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -91,10 +95,8 @@ class FollowerFragment (val username :String) : Fragment(), FollowersAdapter.OnI
     override fun onItemClick(item: ItemFollowers) {
         val username = item.login
         Log.i("Username", "onItemClick Follow: ${item.login} ")
-        // Membuat instance fragment detail dan mengirim data
         val detailFragment = DetailFragment.newInstance("$username")
 
-        // Mengganti fragment saat item diklik
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_container, detailFragment)
         transaction.addToBackStack(null)

@@ -38,6 +38,7 @@ class FavoriteActivity : AppCompatActivity(), GithubUserAdapter.OnItemClickListe
         binding?.rvNotes?.adapter = adapter
 
     }
+
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
         val factory = FavoriteModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory).get(MainViewModel::class.java)

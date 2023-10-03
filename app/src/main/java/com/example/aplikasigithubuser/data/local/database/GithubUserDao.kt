@@ -12,10 +12,13 @@ import androidx.room.Update
 interface GithubUserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(githubUser: GithubUser)
+
     @Update
     fun update(githubUser: GithubUser)
+
     @Delete
     fun delete(githubUser: GithubUser)
+
     @Query("SELECT * from GithubUser ORDER BY id ASC")
     fun getAllNotes(): LiveData<List<GithubUser>>
 

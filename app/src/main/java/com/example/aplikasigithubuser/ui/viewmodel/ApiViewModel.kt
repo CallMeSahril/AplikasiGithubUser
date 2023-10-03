@@ -35,15 +35,16 @@ class ApiViewModel : ViewModel() {
         fetchDataFromApi()
 
     }
+
     fun fetchDataFromApi(username: String = "sahril") {
-        _isLoading.postValue(true) // Set isLoading to true while fetching data
+        _isLoading.postValue(true)
 
         val apiService = ApiConfig.getApiService()
-        val call = apiService.searchUsers(username) // Menggunakan parameter username yang diterima
+        val call = apiService.searchUsers(username)
 
         call.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(
-                
+
                 call: Call<GithubResponse>,
                 response: Response<GithubResponse>
             ) {
@@ -55,24 +56,24 @@ class ApiViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
 
-                _isLoading.postValue(false) // Set isLoading to false after fetching data
+                _isLoading.postValue(false)
             }
 
             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
                 Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
-                // Handle network error here
-                _isLoading.postValue(false) // Set isLoading to false if there's an error
+                _isLoading.postValue(false)
             }
         })
     }
 
     fun fetchDataFollowers(username: String) {
-        _isLoading.postValue(true) // Set isLoading to true while fetching data
+        _isLoading.postValue(true)
 
         val apiService = ApiConfig.getApiService()
         val call = apiService.getFollowers(username)
 
-        call.enqueue(object : Callback<List<ItemFollowers>> { // Use List<ItemFollowers> as the callback type
+        call.enqueue(object :
+            Callback<List<ItemFollowers>> {
             override fun onResponse(
                 call: Call<List<ItemFollowers>>,
                 response: Response<List<ItemFollowers>>
@@ -85,25 +86,26 @@ class ApiViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
 
-                _isLoading.postValue(false) // Set isLoading to false after fetching data
+                _isLoading.postValue(false)
             }
 
             override fun onFailure(call: Call<List<ItemFollowers>>, t: Throwable) {
                 Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
 
                 // Handle network error here
-                _isLoading.postValue(false) // Set isLoading to false if there's an error
+                _isLoading.postValue(false)
             }
         })
     }
 
     fun fetchDataFollowing(username: String) {
-        _isLoading.postValue(true) // Set isLoading to true while fetching data
+        _isLoading.postValue(true)
 
         val apiService = ApiConfig.getApiService()
         val call = apiService.getFollowing(username)
 
-        call.enqueue(object : Callback<List<FollowingResponseItem>> { // Use List<ItemFollowers> as the callback type
+        call.enqueue(object :
+            Callback<List<FollowingResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowingResponseItem>>,
                 response: Response<List<FollowingResponseItem>>
@@ -116,14 +118,14 @@ class ApiViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
 
-                _isLoading.postValue(false) // Set isLoading to false after fetching data
+                _isLoading.postValue(false)
             }
 
             override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
                 Log.e(TAG, "Fetch followers failed. Error: ${t.message}")
 
-                // Handle network error here
-                _isLoading.postValue(false) // Set isLoading to false if there's an error
+
+                _isLoading.postValue(false)
             }
         })
     }

@@ -41,7 +41,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = UserAdapter(this)
 
-        // Mengatur LinearLayoutManager
 
         val orientation = resources.configuration.orientation
 
@@ -60,14 +59,11 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
                 val query = searchView.text.toString().trim()
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (query.isEmpty()) {
-                        // Jika pengguna tidak memasukkan teks, panggil metode fetchDataFromApi dengan nilai default "sahril"
                         viewModel.fetchDataFromApi("sahril")
                     } else {
-                        // Jika pengguna memasukkan teks, panggil metode fetchDataFromApi dengan nilai query
                         viewModel.fetchDataFromApi(query)
                     }
 
-                    // Lakukan tindakan lain yang Anda perlukan saat pengguna menekan tombol "Cari"
                     searchBar.text = searchView.text
                     searchView.hide()
                     Toast.makeText(context, searchView.text, Toast.LENGTH_SHORT).show()
@@ -81,25 +77,20 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             setHasOptionsMenu(true)
         }
 
-        // Observe LiveData for isLoading
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                // Tampilkan ProgressBar jika isLoading adalah true
                 binding.progressBar.visibility = View.VISIBLE
             } else {
-                // Sembunyikan ProgressBar jika isLoading adalah false
                 binding.progressBar.visibility = View.GONE
             }
         }
 
-        // Observe LiveData here and update the adapter data
         viewModel.listReview.observe(viewLifecycleOwner) { items ->
             adapter.submitList(items)
         }
 
         return rootView
     }
-
 
 
     override fun onDestroyView() {
@@ -110,10 +101,8 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     override fun onItemClick(item: Itemsitem) {
         val username = item.login
 
-        // Membuat instance fragment detail dan mengirim data
         val detailFragment = DetailFragment.newInstance("$username")
 
-        // Mengganti fragment saat item diklik
         val transaction = fragmentManager?.beginTransaction()
         transaction?.replace(R.id.frame_container, detailFragment)
         transaction?.addToBackStack(null)
@@ -123,27 +112,19 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.app_bar, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        // Mendapatkan nilai theme mode
         val themeMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-        // Mengatur gambar icon sesuai dengan theme mode
         val settingIcon = if (themeMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Gambar icon putih
             R.drawable.ic_settings_white
         } else {
-            // Gambar icon hitam
             R.drawable.ic_settings
         }
-        // Mengatur gambar icon sesuai dengan theme mode
         val favoriteIcon = if (themeMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Gambar icon putih
             R.drawable.ic_favorite_white
         } else {
-            // Gambar icon hitam
             R.drawable.ic_favorite
         }
 
-        // Mengatur gambar icon untuk menu setting
         menu.findItem(R.id.setting).setIcon(settingIcon)
         menu.findItem(R.id.favorite).setIcon(favoriteIcon)
     }

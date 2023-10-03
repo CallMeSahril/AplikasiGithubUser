@@ -19,7 +19,7 @@ import com.example.aplikasigithubuser.ui.adapter.FollowingAdapter
 import com.example.aplikasigithubuser.ui.viewmodel.ApiViewModel
 
 
-class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.OnItemClickListener {
+class FollowingFragment(val username: String) : Fragment(), FollowingAdapter.OnItemClickListener {
     private var _binding: FragmentFollowingBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ApiViewModel by viewModels()
@@ -28,19 +28,18 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "onCreateView called")
 
         _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
         return rootView
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchDataFollowing(username)
 
 
-        // Mengatur LinearLayoutManager
         val orientation = resources.configuration.orientation
 
         val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -54,7 +53,6 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
 
 
         viewModel.listReviewFollowing.observe(viewLifecycleOwner) { consumerReviews ->
-            Log.i("com.example.aplikasigithubuser.ui.fragment.FollowerFragment", "Data changed: ${consumerReviews.size} items")
             setReviewData(consumerReviews)
         }
 
@@ -64,6 +62,7 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
 
 
     }
+
     private fun setReviewData(consumerReviews: List<FollowingResponseItem>) {
         val adapter = FollowingAdapter(this)
         adapter.submitList(consumerReviews)
@@ -76,6 +75,7 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
         }
 
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -87,18 +87,13 @@ class FollowingFragment (val username :String) : Fragment() ,FollowingAdapter.On
 
     override fun onItemClick(item: FollowingResponseItem) {
         val username = item.login
-        Log.i("Username", "onItemClick Following: ${item.login} ")
-        // Membuat instance fragment detail dan mengirim data
         val detailFragment = DetailFragment.newInstance("$username")
 
-        // Mengganti fragment saat item diklik
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_container, detailFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
-
 
 
 }

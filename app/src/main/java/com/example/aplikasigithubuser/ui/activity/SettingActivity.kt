@@ -20,7 +20,7 @@ class SettingActivity : AppCompatActivity() {
         val switchTheme = findViewById<SwitchMaterial>(R.id.switch_theme)
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val mainViewModel = ViewModelProvider(this,ViewModelFactory(pref)).get(
+        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
             ThemeViewModel::class.java
         )
         mainViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->

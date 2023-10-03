@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class FavoriteModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
+class FavoriteModelFactory private constructor(private val mApplication: Application) :
+    ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
         private var INSTANCE: FavoriteModelFactory? = null
+
         @JvmStatic
         fun getInstance(application: Application): FavoriteModelFactory {
             if (INSTANCE == null) {

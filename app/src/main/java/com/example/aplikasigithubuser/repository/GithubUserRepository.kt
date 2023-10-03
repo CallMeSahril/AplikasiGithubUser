@@ -11,17 +11,19 @@ import java.util.concurrent.Executors
 class GithubUserRepository(application: Application) {
     private val mNotesDao: GithubUserDao
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+
     init {
         val db = GithubUserRoomDatabase.getDatabase(application)
         mNotesDao = db.noteDao()
 
 
-
     }
+
     fun getAllNotes(): LiveData<List<GithubUser>> = mNotesDao.getAllNotes()
     fun insert(githubUser: GithubUser) {
         executorService.execute { mNotesDao.insert(githubUser) }
     }
+
     fun delete(githubUser: GithubUser) {
         executorService.execute { mNotesDao.delete(githubUser) }
     }

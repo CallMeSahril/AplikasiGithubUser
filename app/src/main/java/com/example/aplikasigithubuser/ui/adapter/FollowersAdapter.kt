@@ -9,12 +9,11 @@ import com.bumptech.glide.Glide
 import com.example.aplikasigithubuser.data.remote.response.ItemFollowers
 import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
 
-import com.example.aplikasigithubuser.databinding.ItemUserFollowersBinding
-
 class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
-    androidx.recyclerview.widget.ListAdapter<ItemFollowers, FollowersAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    androidx.recyclerview.widget.ListAdapter<ItemFollowers, FollowersAdapter.MyViewHolder>(
+        DIFF_CALLBACK
+    ) {
 
-    // Interface untuk menangani klik item
     interface OnItemClickListener {
         fun onItemClick(item: ItemFollowers)
     }
@@ -46,7 +45,6 @@ class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
 
             Log.i(TAG, "${review.login}")
 
-            // Tambahkan kode untuk menangani klik item di sini
             itemView.setOnClickListener {
                 onItemClickListener.onItemClick(review)
             }
@@ -60,7 +58,10 @@ class FollowersAdapter(private val onItemClickListener: OnItemClickListener) :
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ItemFollowers, newItem: ItemFollowers): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ItemFollowers,
+                newItem: ItemFollowers
+            ): Boolean {
                 return oldItem == newItem
             }
         }

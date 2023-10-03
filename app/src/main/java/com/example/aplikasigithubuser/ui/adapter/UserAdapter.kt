@@ -13,7 +13,6 @@ import com.example.aplikasigithubuser.databinding.ItemUserCardBinding
 class UserAdapter(private val onItemClickListener: OnItemClickListener) :
     ListAdapter<Itemsitem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
-    // Interface untuk menangani klik item
     interface OnItemClickListener {
         fun onItemClick(item: Itemsitem)
     }
@@ -43,7 +42,6 @@ class UserAdapter(private val onItemClickListener: OnItemClickListener) :
 
             Log.i(TAG, "bind: ${review.login}")
 
-            // Tambahkan kode untuk menangani klik item di sini
             itemView.setOnClickListener {
                 onItemClickListener.onItemClick(review)
             }
