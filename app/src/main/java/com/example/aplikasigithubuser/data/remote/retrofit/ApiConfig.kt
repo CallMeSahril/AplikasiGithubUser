@@ -1,3 +1,4 @@
+import com.example.aplikasigithubuser.BuildConfig
 import com.example.aplikasigithubuser.data.remote.retrofit.ApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,13 +13,24 @@ class ApiConfig {
         private const val TOKEN = "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" // Replace with your GitHub token
 
         fun getApiService(): ApiService {
-            val loggingInterceptor =
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val httpClient = OkHttpClient.Builder()
+            val loggingInterceptor = HttpLoggingInterceptor()
+
+            if (BuildConfig.DEBUG) {
+
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                httpClient.addInterceptor(loggingInterceptor)
+            } else {
+
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE)
+                httpClient.addInterceptor(loggingInterceptor)
+            }
+
 
             val authInterceptor = Interceptor { chain ->
                 val originalRequest = chain.request()
                 val newRequest: Request = originalRequest.newBuilder()
-                    .header("Authorization", "$TOKEN") // Add your token here
+                    .header("Authorization", "${BuildConfig.GITHUB_TOKEN}") // Add your token here
                     .build()
                 chain.proceed(newRequest)
             }
